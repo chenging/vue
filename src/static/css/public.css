@@ -1,0 +1,19 @@
+html,
+body,
+div,
+h5,
+h6,
+p,
+ul,
+li {
+    margin: 0px;
+    padding: 0px;
+}
+
+body {
+    overflow: hidden;
+}
+
+[v-cloak] {
+    display: none;
+}
