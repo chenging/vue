@@ -14,9 +14,12 @@ Vue.use(VueAxios, axios);
 const router = new VueRouter({
   routes
 });
+
+Vue.prototype.imgSrc='https://github.com/chenging/vue/tree/master/src/static/images';
+
 //挂载实例
 new Vue({
-    el: '#app',
-    router: router,
-    render: h => h(App)
-  });
+  el: '#app',
+  router: router,
+  render: h => h(App)
+});

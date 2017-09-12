@@ -10,10 +10,6 @@ li {
     padding: 0px;
 }
 
-body {
-    overflow: hidden;
-}
-
 [v-cloak] {
     display: none;
 }
