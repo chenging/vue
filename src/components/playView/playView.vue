@@ -5,7 +5,7 @@
             <p class="song-name">歌曲名称</p>
             <img src="../../static/images/play-Share.png" alt="" class="share">
         </div>
-        <canvas  id="playAnimation">
+        <canvas id="playAnimation">
             <img src="../../static/images/record.png" id="record" class="play-animation">
         </canvas>
         <div class="interaction-box">
@@ -24,10 +24,10 @@
         </div>
         <div class="play-controll">
             <img src="../../static/images/play-random.png" alt="" class="play-controll-icon-edge">
-            <img src="../../static/images/play-last.png" alt="" class="play-controll-icon-switch">
+            <img src="../../static/images/play-last.png" alt="" class="play-controll-icon-switch" @click="lastSong">
             <img v-if="playStatus" @click="play" src="../../static/images/play-pause.png" alt="" class="play-controll-icon-play">
             <img v-if="!playStatus" @click="play" src="../../static/images/play-playing.png" alt="" class="play-controll-icon-play">
-            <img src="../../static/images/play-next.png" alt="" class="play-controll-icon-switch">
+            <img src="../../static/images/play-next.png" alt="" class="play-controll-icon-switch" @click="nextSong">
             <img src="../../static/images/play-list-more.png" alt="" class="play-controll-icon-edge">
         </div>
     </div>
@@ -37,9 +37,12 @@ export default {
     data() {
         return {
             playStatus: false,
-            src: 'http://m10.music.126.net/20170913193112/005651603bfa07268b7972d6519f0925/ymusic/fb7b/7769/6dc7/deb1d134bd3ab65e1f01f7c1530bcd59.mp3',
+            src: [
+                'http://m10.music.126.net/20170914184206/2e2c2700252281ce220fb5db4930dd8f/ymusic/80cd/afaa/0422/f323d3e939261677ce1b383e3194c751.mp3',
+                ],
             curPlayTime: '00:00',//当前已播放时长
-            totalPlayTime: '00:00'//总时长
+            totalPlayTime: '00:00',//总时长
+            index: 0//当前播放列表的顺序
         }
     },
     created: function() {
@@ -50,7 +53,7 @@ export default {
         this.timer = setInterval(() => {
             this.listenPlayStatus();
             this.drawProgress();
-            if(this.playStatus){
+            if (this.playStatus) {
                 this.drawAnimation();
             }
         }, 1000)
@@ -80,10 +83,32 @@ export default {
                 GlobalData.AudioPlayStatus = this.playStatus;
             }
         },
+        //上一曲
+        lastSong: function() {
+            if (this.index > 0) {
+                this.index -= 1;
+            }
+            this.player.src = this.src[this.index];
+            this.player.play();
+            this.playStatus = true;
+            GlobalData.AudioPlayStatus = this.playStatus;
+        },
+        //下一曲
+        nextSong: function() {
+            if (this.index < this.src.length-1) {
+                this.index += 1;
+            } else {
+                this.index = 0;
+            }
+            this.player.src = this.src[this.index];
+            this.player.play();
+            this.playStatus = true;
+            GlobalData.AudioPlayStatus = this.playStatus;
+        },
         //根据isAudioSrc判断是否已经初始化播放器，如果为false则注入歌曲链接
         initPlayer: function() {
             if (!GlobalData.isAudioSrc) {
-                this.player.src = this.src;
+                this.player.src = this.src[this.index];
                 GlobalData.isAudioSrc = true;
             }
         },
@@ -101,84 +126,103 @@ export default {
         listenPlayStatus: function() {
             this.curPlayTime = this.transformToMinutes(this.player.currentTime);
             this.totalPlayTime = this.transformToMinutes(this.player.duration);
-            if (this.curPlayTime === this.totalPlayTime) {
-                this.playStatus = false;
+            if (this.player.duration) {
+                if (this.curPlayTime === this.totalPlayTime) {
+                    // if (this.index < this.src.length) {
+                    //     this.index++;
+                    // } else {
+                    //     this.index = 0;
+                    //     this.playStatus = false;
+                    // }
+                    // this.player.src = this.src[this.index];
+                    // this.player.play();
+                    // this.playStatus = true;
+                    // GlobalData.AudioPlayStatus = this.playStatus;
+                }
             }
+
         },
         //使用canvas绘制播放进度条
         drawProgress: function() {
             const cav = document.getElementById('playProgress');
             const ctx = cav.getContext('2d');
-            const curTime=parseInt(this.player.currentTime);
-            const totalTime=parseInt(this.player.duration);
-            cav.width=parseInt(screen.width)*65/100;
-            cav.height='30';
-             //计算进度条
-            const progress=parseInt(curTime*(cav.width-cav.height)/totalTime);
+            const curTime = parseInt(this.player.currentTime);
+            const totalTime = parseInt(this.player.duration);
+            cav.width = parseInt(screen.width) * 65 / 100;
+            cav.height = '30';
+            //计算进度条
+            const progress = parseInt(curTime * (cav.width - cav.height) / totalTime);
             //画未播放时的进度条
             ctx.beginPath();
-            ctx.strokeStyle='#bab3b3';
-            ctx.lineWidth='3';
-            ctx.moveTo(0,cav.height/2);
-            ctx.lineTo(cav.width,cav.height/2);
+            ctx.strokeStyle = '#bab3b3';
+            ctx.lineWidth = '3';
+            ctx.moveTo(0, cav.height / 2);
+            ctx.lineTo(cav.width, cav.height / 2);
             ctx.stroke();
             //画播放时滑动的圆
             ctx.beginPath();
-            ctx.fillStyle='#fff';
-            if(progress){
-                ctx.arc(cav.height/2+progress,cav.height/2,cav.height/2,0,2*Math.PI);
-            }else{
-                ctx.arc(cav.height/2,cav.height/2,cav.height/2,0,2*Math.PI);
+            ctx.fillStyle = '#fff';
+            if (progress) {
+                ctx.arc(cav.height / 2 + progress, cav.height / 2, cav.height / 2, 0, 2 * Math.PI);
+            } else {
+                ctx.arc(cav.height / 2, cav.height / 2, cav.height / 2, 0, 2 * Math.PI);
             }
             ctx.fill();
             //画里面的同心小圆
             ctx.beginPath();
-            ctx.fillStyle="#9275dc";
-            if(progress){
-                ctx.arc(cav.height/2+progress,cav.height/2,3,0,2*Math.PI);
-            }else{
-                ctx.arc(cav.height/2,cav.height/2,3,0,2*Math.PI);
+            ctx.fillStyle = "#9275dc";
+            if (progress) {
+                ctx.arc(cav.height / 2 + progress, cav.height / 2, 3, 0, 2 * Math.PI);
+            } else {
+                ctx.arc(cav.height / 2, cav.height / 2, 3, 0, 2 * Math.PI);
             }
             ctx.fill();
             //绘制已播放的进度条
             ctx.beginPath();
-            ctx.strokeStyle='#9275dc';
-            ctx.lineWidth='3';
-            ctx.moveTo(0,cav.height/2);
-            ctx.lineTo(progress,cav.height/2);
+            ctx.strokeStyle = '#9275dc';
+            ctx.lineWidth = '3';
+            ctx.moveTo(0, cav.height / 2);
+            ctx.lineTo(progress, cav.height / 2);
             ctx.stroke();
         },
         //canvas绘制播放动画
-        drawAnimation:function(){
+        drawAnimation: function() {
             const cav = document.getElementById('playAnimation');
             const ctx = cav.getContext('2d');
-            const img=document.getElementById('record');
-            cav.width=parseInt(screen.width);
-            cav.height='435';
+            const img = document.getElementById('record');
+            cav.width = parseInt(screen.width);
+            cav.height = parseInt(screen.height * 60 / 100);
 
             //绘制同心圆
             ctx.beginPath();
-            ctx.fillStyle='#bab3b3';
-            ctx.arc(cav.width/2,cav.height/2,cav.height*40/100,0,2*Math.PI);
+            ctx.fillStyle = '#bab3b3';
+            ctx.arc(cav.width / 2, cav.height / 2, cav.height * 40 / 100, 0, 2 * Math.PI);
             ctx.fill();
 
             //绘制可旋转的其他同心圆
-            const r=cav.height*40/100;
-            for(let i=r*90/100;i>=r*50/100;i-=5){
+            const r = cav.height * 40 / 100;
+            for (let i = r * 90 / 100; i >= r * 50 / 100; i -= 5) {
                 ctx.beginPath();
                 // ctx.strokeStyle=`rgb(${27+i},${27+i},${28+i})`;
-                ctx.strokeStyle = `rgb(${parseInt(Math.random()*255)},${parseInt(Math.random()*255)},${parseInt(Math.random()*255)})`;
-                ctx.arc(cav.width/2,cav.height/2,i,0,2*Math.PI);
+                ctx.strokeStyle = `rgb(${parseInt(Math.random() * 255)},${parseInt(Math.random() * 255)},${parseInt(Math.random() * 255)})`;
+                ctx.arc(cav.width / 2, cav.height / 2, i, 0, 2 * Math.PI);
                 ctx.stroke();
             }
             //绘制旋转的图片
             //计算最内侧圆弧上图片起始坐标点
-            const imgX=(cav.width/2)-Math.cos(45*Math.PI/180)*r*50/100;
-            const imgY=(cav.height/2)-Math.sin(45*Math.PI/180)*r*50/100;
-            img.onload=function(){
-                ctx.drawImage(img,imgX,imgY,imgX,imgX);
+            const imgX = (cav.width / 2) - Math.cos(45 * Math.PI / 180) * r * 50 / 100;
+            const imgY = (cav.height / 2) - Math.sin(45 * Math.PI / 180) * r * 50 / 100;
+            //计算最内侧圆弧上图片终点坐标点
+            const imgTarX = (cav.width / 2) + Math.cos(-45 * Math.PI / 180) * r * 50 / 100;
+            const imgTarY = (cav.width / 2) + Math.sin(-45 * Math.PI / 180) * r * 50 / 100;
+            // ctx.beginPath();
+            // ctx.fillStyle='#fff';
+            // ctx.arc(imgTarX,imgTarY,5,0,2*Math.PI);
+            // ctx.fill();
+            img.onload = function() {
+                ctx.drawImage(img, imgX, imgY, imgTarX - imgX, imgX - 10);
             }
-            ctx.drawImage(img,imgX,imgY,imgX,imgX);
+            ctx.drawImage(img, imgX, imgY, imgTarX - imgX, imgX - 10);
         }
     },
     destroyed: function() {
@@ -267,9 +311,11 @@ export default {
 .surplus-time {
     color: #bab3b3;
 }
-.play-animation{
+
+.play-animation {
     display: none;
 }
+
 .play-controll {
     width: 94%;
     height: 50px;
