@@ -7,15 +7,15 @@
                    <p class="detail-title">老游戏大战新游戏</p>
                    <div class="interaction">
                        <div class="interaction-item">
-                           <img src="../../static/images/thumbs.png" alt="" class="interaction-item-img">
+                           <img src="../../../static/images/thumbs.png" alt="" class="interaction-item-img">
                            <p class="interaction-item-num">666</p>
                        </div>
                        <div class="interaction-item">
-                           <img src="../../static/images/comment.png" alt="" class="interaction-item-img">
+                           <img src="../../../static/images/comment.png" alt="" class="interaction-item-img">
                            <p class="interaction-item-num">355</p>
                        </div>
                        <div class="interaction-item-more">
-                           <img src="../../static/images/More.png" alt="" class="interaction-item-img">
+                           <img src="../../../static/images/More.png" alt="" class="interaction-item-img">
                        </div>
                    </div>
                </div>
@@ -26,15 +26,15 @@
                    <p class="detail-title">老游戏大战新游戏</p>
                    <div class="interaction">
                        <div class="interaction-item">
-                           <img src="../../static/images/thumbs.png" alt="" class="interaction-item-img">
+                           <img src="../../../static/images/thumbs.png" alt="" class="interaction-item-img">
                            <p class="interaction-item-num">666</p>
                        </div>
                        <div class="interaction-item">
-                           <img src="../../static/images/comment.png" alt="" class="interaction-item-img">
+                           <img src="../../../static/images/comment.png" alt="" class="interaction-item-img">
                            <p class="interaction-item-num">355</p>
                        </div>
                        <div class="interaction-item-more">
-                           <img src="../../static/images/More.png" alt="" class="interaction-item-img">
+                           <img src="../../../static/images/More.png" alt="" class="interaction-item-img">
                        </div>
                    </div>
                </div>
@@ -45,15 +45,15 @@
                    <p class="detail-title">老游戏大战新游戏</p>
                    <div class="interaction">
                        <div class="interaction-item">
-                           <img src="../../static/images/thumbs.png" alt="" class="interaction-item-img">
+                           <img src="../../../static/images/thumbs.png" alt="" class="interaction-item-img">
                            <p class="interaction-item-num">666</p>
                        </div>
                        <div class="interaction-item">
-                           <img src="../../static/images/comment.png" alt="" class="interaction-item-img">
+                           <img src="../../../static/images/comment.png" alt="" class="interaction-item-img">
                            <p class="interaction-item-num">355</p>
                        </div>
                        <div class="interaction-item-more">
-                           <img src="../../static/images/More.png" alt="" class="interaction-item-img">
+                           <img src="../../../static/images/More.png" alt="" class="interaction-item-img">
                        </div>
                    </div>
                </div>

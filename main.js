@@ -2,7 +2,8 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import axios from 'axios';
 import VueAxios from 'vue-axios';
-
+//引入全局变量
+import './src/config/global';
 //引入入口文件
 import App from './src/components/App.vue';
 //引入路由文件
@@ -14,9 +15,10 @@ Vue.use(VueAxios, axios);
 const router = new VueRouter({
   routes
 });
-
-Vue.prototype.imgSrc='https://github.com/chenging/vue/tree/master/src/static/images';
-
+//创建全局播放器
+const music=document.createElement('audio');
+music.src='';
+Vue.prototype.player=music;
 //挂载实例
 new Vue({
   el: '#app',

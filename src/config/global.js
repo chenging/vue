@@ -1,0 +1,15 @@
+/*
+参数说明：
+    AudioPlayStatus：音频播放状态，默认为未播放；
+    isAudioSrc：是否已注入音频播放链接，默认为未注入；
+    MediePlayStatus：视频播放状态，默认为未播放；
+    isMedioSrc：是否已注入视频播放链接，默认为未注入
+    isDrawRhythm：是否已绘制过频率线
+*/
+global.GlobalData={
+    AudioPlayStatus:false,
+    isAudioSrc:false,
+    MediePlayStatus:false,
+    isMedioSrc:false,
+    isDrawRhythm:false
+}

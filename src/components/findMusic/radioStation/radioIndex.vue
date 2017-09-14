@@ -1,18 +1,18 @@
 <template>
     <div v-cloak>
         <div class="ad">
-            <img src="../../static/images/carousel-two.jpg" alt="" class="carousel-img">
+            <img src="../../../static/images/carousel-two.jpg" alt="" class="carousel-img">
         </div>
         <div class="radio-nav">
             <div class="radio-nav-box">
                 <div class="radio-nav-item">
-                    <img src="../../static/images/classify .png" alt="" class="classify">
+                    <img src="../../../static/images/classify .png" alt="" class="classify">
                     <p>电台分类</p>
                 </div>
             </div>
             <div class="radio-nav-box">
                 <div class="radio-nav-item">
-                    <img src="../../static/images/icon-ranking.png" alt="" class="classify">
+                    <img src="../../../static/images/icon-ranking.png" alt="" class="classify">
                     <p>电台排行</p>
                 </div>
             </div>
@@ -20,7 +20,7 @@
         <div class="classify-title">
             <p class="classify-title-bg"></p>
             <p class="classify-ttitle-content">推荐歌单</p>
-            <img src="../../static/images/next.png" alt="" class="next-img">
+            <img src="../../../static/images/next.png" alt="" class="next-img">
         </div>
         <div class="pay-item">
             <img src="" alt="" class="radio-person">
@@ -32,7 +32,7 @@
                 <p class="pay-item-detail-content">每周帮你消化一本好书</p>
                 <p class="pay-item-detail-content">9月12日更新</p>
                 <p class="pay-item-detail-content">
-                    <img src="../../static/images/play.png" alt="" class="play-img">
+                    <img src="../../../static/images/play.png" alt="" class="play-img">
                     <span>深度工作：四种模式，帮你快速...</span>
                 </p>
             </div>
@@ -47,7 +47,7 @@
                 <p class="pay-item-detail-content">影响你未来的100次心理谈话</p>
                 <p class="pay-item-detail-content">9月11日更新</p>
                 <p class="pay-item-detail-content">
-                    <img src="../../static/images/play.png" alt="" class="play-img">
+                    <img src="../../../static/images/play.png" alt="" class="play-img">
                     <span>意识的目的和动机：请和我保持距离...</span>
                 </p>
             </div>
@@ -70,7 +70,7 @@
             <div class="classify-title">
                 <p class="classify-title-bg"></p>
                 <p class="classify-ttitle-content">{{item}}</p>
-                <img src="../../static/images/next.png" alt="" class="next-img">
+                <img src="../../../static/images/next.png" alt="" class="next-img">
             </div>
             <div class="classify-list">
                 <div class="list-item">
@@ -107,13 +107,13 @@
             <div class="aggregate-box">
                 <div class="aggregate-box-item">
                     <div class="aggregate-item">
-                        <img src="../../static/images/radio-book.png" alt="" class="hot-icon">
+                        <img src="../../../static/images/radio-book.png" alt="" class="hot-icon">
                         <p>有声书</p>
                     </div>
                 </div>
                 <div class="aggregate-box-item">
                     <div class="aggregate-item">
-                        <img src="../../static/images/bulb-1.png" alt="" class="hot-icon">
+                        <img src="../../../static/images/bulb-1.png" alt="" class="hot-icon">
                         <p>知识技能</p>
                     </div>
                 </div>
@@ -121,13 +121,13 @@
             <div class="aggregate-box">
                 <div class="aggregate-box-item">
                     <div class="aggregate-item">
-                        <img src="../../static/images/trend.png" alt="" class="hot-icon">
+                        <img src="../../../static/images/trend.png" alt="" class="hot-icon">
                         <p>商业财经</p>
                     </div>
                 </div>
                 <div class="aggregate-box-item">
                     <div class="aggregate-item">
-                        <img src="../../static/images/Sailboat.png" alt="" class="hot-icon">
+                        <img src="../../../static/images/Sailboat.png" alt="" class="hot-icon">
                         <p>人文历史</p>
                     </div>
                 </div>
@@ -135,13 +135,13 @@
             <div class="aggregate-box">
                 <div class="aggregate-box-item">
                     <div class="aggregate-item">
-                        <img src="../../static/images/abc.png" alt="" class="hot-icon">
+                        <img src="../../../static/images/abc.png" alt="" class="hot-icon">
                         <p>外语世界</p>
                     </div>
                 </div>
                 <div class="aggregate-box-item">
                     <div class="aggregate-item">
-                        <img src="../../static/images/baby.png" alt="" class="hot-icon">
+                        <img src="../../../static/images/baby.png" alt="" class="hot-icon">
                         <p>亲子宝贝</p>
                     </div>
                 </div>
@@ -155,13 +155,13 @@
             <div class="aggregate-box">
                 <div class="aggregate-box-item">
                     <div class="aggregate-item">
-                        <img src="../../static/images/kalaok.png" alt="" class="hot-icon">
+                        <img src="../../../static/images/kalaok.png" alt="" class="hot-icon">
                         <p>创作|翻唱</p>
                     </div>
                 </div>
                 <div class="aggregate-box-item">
                     <div class="aggregate-item">
-                        <img src="../../static/images/radio-music.png" alt="" class="hot-icon">
+                        <img src="../../../static/images/radio-music.png" alt="" class="hot-icon">
                         <p>音乐故事</p>
                     </div>
                 </div>
@@ -169,13 +169,13 @@
             <div class="aggregate-box">
                 <div class="aggregate-box-item">
                     <div class="aggregate-item">
-                        <img src="../../static/images/Headset-1.png" alt="" class="hot-icon">
+                        <img src="../../../static/images/Headset-1.png" alt="" class="hot-icon">
                         <p>3D|电子</p>
                     </div>
                 </div>
                 <div class="aggregate-box-item">
                     <div class="aggregate-item">
-                        <img src="../../static/images/fan.png" alt="" class="hot-icon">
+                        <img src="../../../static/images/fan.png" alt="" class="hot-icon">
                         <p>相声曲艺</p>
                     </div>
                 </div>
@@ -183,13 +183,13 @@
             <div class="aggregate-box">
                 <div class="aggregate-box-item">
                     <div class="aggregate-item">
-                        <img src="../../static/images/smile.png" alt="" class="hot-icon">
+                        <img src="../../../static/images/smile.png" alt="" class="hot-icon">
                         <p>情歌调频</p>
                     </div>
                 </div>
                 <div class="aggregate-box-item">
                     <div class="aggregate-item">
-                        <img src="../../static/images/hot-book.png" alt="" class="hot-icon">
+                        <img src="../../../static/images/hot-book.png" alt="" class="hot-icon">
                         <p>美文读物</p>
                     </div>
                 </div>
@@ -197,13 +197,13 @@
             <div class="aggregate-box">
                 <div class="aggregate-box-item">
                     <div class="aggregate-item">
-                        <img src="../../static/images/smile.png" alt="" class="hot-icon">
+                        <img src="../../../static/images/G-Talking.png" alt="" class="hot-icon">
                         <p>脱口秀</p>
                     </div>
                 </div>
                 <div class="aggregate-box-item">
                     <div class="aggregate-item">
-                        <img src="../../static/images/hot-book.png" alt="" class="hot-icon">
+                        <img src="../../../static/images/hot-radio.png" alt="" class="hot-icon">
                         <p>广播剧</p>
                     </div>
                 </div>
@@ -211,13 +211,13 @@
             <div class="aggregate-box">
                 <div class="aggregate-box-item">
                     <div class="aggregate-item">
-                        <img src="../../static/images/smile.png" alt="" class="hot-icon">
+                        <img src="../../../static/images/erciyuan.png" alt="" class="hot-icon">
                         <p>二次元</p>
                     </div>
                 </div>
                 <div class="aggregate-box-item">
                     <div class="aggregate-item">
-                        <img src="../../static/images/hot-book.png" alt="" class="hot-icon">
+                        <img src="../../../static/images/icon_anchor_homepage.png" alt="" class="hot-icon">
                         <p>明星做主播</p>
                     </div>
                 </div>
@@ -225,13 +225,13 @@
             <div class="aggregate-box">
                 <div class="aggregate-box-item">
                     <div class="aggregate-item">
-                        <img src="../../static/images/smile.png" alt="" class="hot-icon">
+                        <img src="../../../static/images/hot-recommend.png" alt="" class="hot-icon">
                         <p>娱乐|影视</p>
                     </div>
                 </div>
                 <div class="aggregate-box-item">
                     <div class="aggregate-item">
-                        <img src="../../static/images/hot-book.png" alt="" class="hot-icon">
+                        <img src="../../../static/images/science_technology.png" alt="" class="hot-icon">
                         <p>科技科学</p>
                     </div>
                 </div>
@@ -239,13 +239,13 @@
             <div class="aggregate-box">
                 <div class="aggregate-box-item">
                     <div class="aggregate-item">
-                        <img src="../../static/images/smile.png" alt="" class="hot-icon">
+                        <img src="../../../static/images/doctor.png" alt="" class="hot-icon">
                         <p>校园|教育</p>
                     </div>
                 </div>
                 <div class="aggregate-box-item">
                     <div class="aggregate-item">
-                        <img src="../../static/images/hot-book.png" alt="" class="hot-icon">
+                        <img src="../../../static/images/aircraft.png" alt="" class="hot-icon">
                         <p>旅途|城市</p>
                     </div>
                 </div>
@@ -263,7 +263,7 @@ export default {
         }
     },
     created: function() {
-        console.log(this.imgSrc)
+       
     },
     methods: {
 

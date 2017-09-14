@@ -1,23 +1,23 @@
 <template>
     <div v-cloak>
         <div class="carousel-box">
-            <img src='../../static/images/carousel-two.jpg' class="carousel-img" />
+            <img src='../../../static/images/carousel-two.jpg' class="carousel-img" />
         </div>
         <div class="radio-station">
-            <div class="radio-station-item">
-                <p><img src='../../static/images/fm.png' class="radio-img" /></p>
+            <div class="radio-station-item" @click="getIntoFm">
+                <p><img src='../../../static/images/fm.png' class="radio-img" /></p>
                 <p>私人FM</p>
             </div>
             <div class="radio-station-item">
-                <p><img src='../../static/images/ic_recommend.png' class="radio-img" /></p>
+                <p><img src='../../../static/images/ic_recommend.png' class="radio-img" /></p>
                 <p>每日推荐</p>
             </div>
             <div class="radio-station-item">
-                <p><img src='../../static/images/sheet-check3-o.png' class="radio-img last" /></p>
+                <p><img src='../../../static/images/sheet-check3-o.png' class="radio-img last" /></p>
                 <p>歌单</p>
             </div>
             <div class="radio-station-item">
-                <p><img src='../../static/images/ranking_icon-01.png' class="radio-img last" /></p>
+                <p><img src='../../../static/images/ranking_icon-01.png' class="radio-img last" /></p>
                 <p>排行榜</p>
             </div>
         </div>
@@ -25,13 +25,13 @@
             <div class="classify-title">
                 <p class="classify-title-bg"></p>
                 <p class="classify-ttitle-content">{{item}}</p>
-                <img src="../../static/images/next.png" alt="" class="next-img">
+                <img src="../../../static/images/next.png" alt="" class="next-img">
             </div>
             <div class="classify-list">
                 <div class="list-item">
                     <div class="list-item-bg">
                         <div class="list-item-title">
-                            <img src="../../static/images/icon_listen.png" alt="" class="icon-listen">
+                            <img src="../../../static/images/icon_listen.png" alt="" class="icon-listen">
                             <span>20万</span>
                         </div>
                     </div>
@@ -40,7 +40,7 @@
                 <div class="list-item">
                     <div class="list-item-bg">
                         <div class="list-item-title">
-                            <img src="../../static/images/icon_listen.png" alt="" class="icon-listen">
+                            <img src="../../../static/images/icon_listen.png" alt="" class="icon-listen">
                             <span>20万</span>
                         </div>
                     </div>
@@ -49,7 +49,7 @@
                 <div class="list-item">
                     <div class="list-item-bg">
                         <div class="list-item-title">
-                            <img src="../../static/images/icon_listen.png" alt="" class="icon-listen">
+                            <img src="../../../static/images/icon_listen.png" alt="" class="icon-listen">
                             <span>20万</span>
                         </div>
                     </div>
@@ -67,10 +67,13 @@ export default {
         }
     },
     created: function() {
-
+        
     },
     methods: {
-
+        //跳转私人FM音乐播放界面
+        getIntoFm:function(){
+            this.$router.push({name:'fmPlayView'});
+        }
     }
 }
 </script>
