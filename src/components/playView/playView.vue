@@ -39,10 +39,12 @@ export default {
             playStatus: false,
             src: [
                 'http://m10.music.126.net/20170914184206/2e2c2700252281ce220fb5db4930dd8f/ymusic/80cd/afaa/0422/f323d3e939261677ce1b383e3194c751.mp3',
-                ],
+                'http://up.xzdown.com/mp3/2017-09-14/1505390954.mp3', 'http://up.xzdown.com/mp3/2017-09-14/1505386184.mp3',
+                'http://up.xzdown.com/mp3/2017-09-14/1505383763.mp3', 'http://up.xzdown.com/mp3/2017-09-14/1505383305.mp3',
+                'http://up.xzdown.com/mp3/2017-09-14/1505367381.mp3'
+            ],
             curPlayTime: '00:00',//当前已播放时长
             totalPlayTime: '00:00',//总时长
-            index: 0//当前播放列表的顺序
         }
     },
     created: function() {
@@ -85,30 +87,37 @@ export default {
         },
         //上一曲
         lastSong: function() {
-            if (this.index > 0) {
-                this.index -= 1;
+            if (GlobalData.index > 0) {
+                GlobalData.index -= 1;
             }
-            this.player.src = this.src[this.index];
+            this.player.src = this.src[GlobalData.index];
             this.player.play();
             this.playStatus = true;
             GlobalData.AudioPlayStatus = this.playStatus;
         },
         //下一曲
         nextSong: function() {
-            if (this.index < this.src.length-1) {
-                this.index += 1;
+            if (GlobalData.index < this.src.length - 1) {
+                GlobalData.index += 1;
             } else {
-                this.index = 0;
+                GlobalData.index = 0;
             }
-            this.player.src = this.src[this.index];
+            this.player.src = this.src[GlobalData.index];
             this.player.play();
             this.playStatus = true;
             GlobalData.AudioPlayStatus = this.playStatus;
         },
+        //音频顺序控制函数
+        audioOrder:function(index){
+            const len=this.src.length;
+            if(index<len-1){
+
+            }
+        },
         //根据isAudioSrc判断是否已经初始化播放器，如果为false则注入歌曲链接
         initPlayer: function() {
             if (!GlobalData.isAudioSrc) {
-                this.player.src = this.src[this.index];
+                this.player.src = this.src[GlobalData.index];
                 GlobalData.isAudioSrc = true;
             }
         },
@@ -128,16 +137,19 @@ export default {
             this.totalPlayTime = this.transformToMinutes(this.player.duration);
             if (this.player.duration) {
                 if (this.curPlayTime === this.totalPlayTime) {
-                    // if (this.index < this.src.length) {
-                    //     this.index++;
-                    // } else {
-                    //     this.index = 0;
-                    //     this.playStatus = false;
-                    // }
-                    // this.player.src = this.src[this.index];
-                    // this.player.play();
-                    // this.playStatus = true;
-                    // GlobalData.AudioPlayStatus = this.playStatus;
+                    if (GlobalData.index < this.src.length - 1) {
+                        GlobalData.index += 1;
+                        this.player.src = this.src[GlobalData.index];
+                        this.player.play();
+                        this.playStatus = true;
+                    } else {
+                        GlobalData.index = 0;
+                        this.player.src = this.src[GlobalData.index];
+                        this.player.pause();
+                        this.playStatus = false;
+                    }
+                    GlobalData.AudioPlayStatus = this.playStatus;
+
                 }
             }
 

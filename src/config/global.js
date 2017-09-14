@@ -5,11 +5,13 @@
     MediePlayStatus：视频播放状态，默认为未播放；
     isMedioSrc：是否已注入视频播放链接，默认为未注入
     isDrawRhythm：是否已绘制过频率线
+    index:当前歌曲索引值
 */
 global.GlobalData={
     AudioPlayStatus:false,
     isAudioSrc:false,
     MediePlayStatus:false,
     isMedioSrc:false,
-    isDrawRhythm:false
+    isDrawRhythm:false,
+    index:0
 }
