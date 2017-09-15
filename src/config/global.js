@@ -18,11 +18,39 @@ global.GlobalData={
     index:0,
     isCollected:false,
     musicList:[
-        {name:'测试歌曲1',src:'http://m10.music.126.net/20170914184206/2e2c2700252281ce220fb5db4930dd8f/ymusic/80cd/afaa/0422/f323d3e939261677ce1b383e3194c751.mp3',id:'1'},
-        {name:'测试歌曲2',src:'http://up.xzdown.com/mp3/2017-09-14/1505390954.mp3',id:'2'},
-        {name:'测试歌曲3',src:'http://up.xzdown.com/mp3/2017-09-14/1505386184.mp3',id:'3'},
-        {name:'测试歌曲4',src:'http://up.xzdown.com/mp3/2017-09-14/1505383763.mp3',id:'4'},
-        {name:'测试歌曲5',src:'http://up.xzdown.com/mp3/2017-09-14/1505383305.mp3',id:'5'},
-        {name:'测试歌曲6',src:'http://up.xzdown.com/mp3/2017-09-14/1505367381.mp3',id:'6'}
+        {
+            name:'测试歌曲1',src:'http://m10.music.126.net/20170914184206/2e2c2700252281ce220fb5db4930dd8f/ymusic/80cd/afaa/0422/f323d3e939261677ce1b383e3194c751.mp3',
+            id:'1',cover:'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=746478563,2459179995&fm=27&gp=0.jpg'
+        },
+        {
+            name:'测试歌曲2',
+            src:'http://up.xzdown.com/mp3/2017-09-14/1505390954.mp3',
+            id:'2',
+            cover:'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1033321943,3170513439&fm=27&gp=0.jpg'
+        },
+        {
+            name:'测试歌曲3',
+            src:'http://up.xzdown.com/mp3/2017-09-14/1505386184.mp3',
+            id:'3',
+            cover:'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=407910219,178769022&fm=27&gp=0.jpg'
+        },
+        {
+            name:'测试歌曲4',
+            src:'http://up.xzdown.com/mp3/2017-09-14/1505383763.mp3',
+            id:'4',
+            cover:'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2733977332,1278110951&fm=27&gp=0.jpg'
+        },
+        {
+            name:'测试歌曲5',
+            src:'http://up.xzdown.com/mp3/2017-09-14/1505383305.mp3',
+            id:'5',
+            cover:'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=3025450187,774551560&fm=27&gp=0.jpg'
+        },
+        {
+            name:'测试歌曲6',
+            src:'http://up.xzdown.com/mp3/2017-09-14/1505367381.mp3',
+            id:'6',
+            cover:'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3792050361,611396766&fm=27&gp=0.jpg'
+        }
     ]
 }

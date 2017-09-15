@@ -62,10 +62,10 @@
         <div class="sheet-list">
             <div class="sheet-item">
                 <p class="sheet-item-logo-box">
-                    <img src="" alt="" class="sheet-item-logo">
+                    <img src="../../static/cover-img/test1.png" alt="" class="sheet-item-logo">
                 </p>
                 <div class="sheet-item-detail-box">
-                    <p class="sheet-item-detail-title">我喜欢的音乐</p>
+                    <p class="sheet-item-detail-title">我喜欢的音乐1</p>
                     <p class="sheet-item-detail-content">
                         <img src="../../static/images/checked.png" alt="" class="downloaded">
                         <span>195首，已下载77首</span>
@@ -77,13 +77,13 @@
             </div>
             <div class="sheet-item">
                 <p class="sheet-item-logo-box">
-                    <img src="" alt="" class="sheet-item-logo">
+                    <img src="../../static/cover-img/test2.png" alt="" class="sheet-item-logo">
                 </p>
                 <div class="sheet-item-detail-box">
-                    <p class="sheet-item-detail-title">我喜欢的音乐</p>
+                    <p class="sheet-item-detail-title">我喜欢的音乐2</p>
                     <p class="sheet-item-detail-content">
                         <img src="../../static/images/checked.png" alt="" class="downloaded">
-                        <span>195首，已下载77首</span>
+                        <span>12首，已下载77首</span>
                     </p>
                 </div>
                 <div class="playing-box">
@@ -92,13 +92,13 @@
             </div>
             <div class="sheet-item">
                 <p class="sheet-item-logo-box">
-                    <img src="" alt="" class="sheet-item-logo">
+                    <img src="../../static/cover-img/test3.png" alt="" class="sheet-item-logo">
                 </p>
                 <div class="sheet-item-detail-box">
-                    <p class="sheet-item-detail-title">我喜欢的音乐</p>
+                    <p class="sheet-item-detail-title">我喜欢的音乐3</p>
                     <p class="sheet-item-detail-content">
                         <img src="../../static/images/checked.png" alt="" class="downloaded">
-                        <span>195首，已下载77首</span>
+                        <span>22首，已下载77首</span>
                     </p>
                 </div>
                 <div class="playing-box">
@@ -280,7 +280,6 @@ header {
 .sheet-item-logo{
     width: 50px;
     height: 50px;
-    border:1px solid red;
 }
 .sheet-item-detail-box{
     width: 72%;

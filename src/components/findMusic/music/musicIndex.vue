@@ -29,7 +29,7 @@
             </div>
             <div class="classify-list">
                 <div class="list-item" v-for="(item,index) in musicList" @click="selectMusicList(item.id)">
-                    <div class="list-item-bg">
+                    <div class="list-item-bg" :style="{backgroundImage: 'url(' + item.cover+ ')'}">
                         <div class="list-item-title">
                             <img src="../../../static/images/icon_listen.png" alt="" class="icon-listen">
                             <span>20万</span>
@@ -59,7 +59,7 @@ export default {
         },
         //每日推荐
         dayRecommend: function(e) {
-            this.clickAnimation(e);
+            // this.clickAnimation(e);
         },
         //选择歌单
         selectMusicList:function(id){
@@ -150,9 +150,9 @@ export default {
 .list-item-bg {
     width: 100%;
     height: 118px;
-    background: #9374ee;
     display: flex;
     justify-content: flex-end;
+    background-size: 100% 100%;
 }
 
 .list-item-title {

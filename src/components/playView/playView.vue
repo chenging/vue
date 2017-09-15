@@ -142,7 +142,7 @@ export default {
                 //播放暂停改变全局播放状态
                 GlobalData.AudioPlayStatus = this.playStatus;
             } else {
-                this.clickAnimation(e);
+                // this.clickAnimation(e);
             }
             this.musicTitle = this.musicList[GlobalData.index].name;
         },

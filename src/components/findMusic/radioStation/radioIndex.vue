@@ -57,13 +57,13 @@
             <p class="classify-ttitle-content">电台个性推荐</p>
         </div>
         <div class="classify-list">
-            <div class="list-item">
-                <div class="list-item-bg">
+            <div class="list-item" v-for="(item,index) in musicList">
+                <div class="list-item-bg" :style="{backgroundImage: 'url(' + item.cover+ ')'}">
                     <div class="list-item-title">
                         姑娘对你说晚安
                     </div>
                 </div>
-                <p class="list-item-describe">夏至|忽而今夏又一季</p>
+                <p class="list-item-describe">{{item.title}}</p>
             </div>
         </div>
         <div v-for="(item,index) in radioList">
@@ -73,29 +73,13 @@
                 <img src="../../../static/images/next.png" alt="" class="next-img">
             </div>
             <div class="classify-list">
-                <div class="list-item">
-                    <div class="list-item-bg">
+                <div class="list-item" v-for="(item,index) in musicList">
+                    <div class="list-item-bg" :style="{backgroundImage: 'url(' + item.cover+ ')'}">
                         <div class="list-item-title">
                             姑娘对你说晚安
                         </div>
                     </div>
-                    <p class="list-item-describe">夏至|忽而今夏又一季</p>
-                </div>
-                <div class="list-item">
-                    <div class="list-item-bg">
-                        <div class="list-item-title">
-                            姑娘对你说晚安
-                        </div>
-                    </div>
-                    <p class="list-item-describe">夏至|忽而今夏又一季</p>
-                </div>
-                <div class="list-item">
-                    <div class="list-item-bg">
-                        <div class="list-item-title">
-                            姑娘对你说晚安
-                        </div>
-                    </div>
-                    <p class="list-item-describe">夏至|忽而今夏又一季</p>
+                    <p class="list-item-describe">{{item.title}}</p>
                 </div>
             </div>
         </div>
@@ -259,11 +243,12 @@ export default {
         return {
             radioList: ['有声书', '知识技能', '商业财经', '人文历史', '外语世界', '亲子宝贝', '创作|翻唱'
                 , '音乐故事', '3D|电子', '相声曲艺', '情歌调频', '美文读物', '脱口秀', '广播剧', '二次元', '娱乐|影视',
-                '科技科学', '校园|教育', '旅途|城市']
+                '科技科学', '校园|教育', '旅途|城市'],
+            musicList:[]
         }
     },
     created: function() {
-       
+       this.musicList=GlobalData.musicList;
     },
     methods: {
 
@@ -403,7 +388,7 @@ export default {
 .list-item-bg {
     width: 100%;
     height: 118px;
-    background: #9374ee;
+    background-size: 100% 100%;
     display: flex;
     justify-content: flex-end;
 }
