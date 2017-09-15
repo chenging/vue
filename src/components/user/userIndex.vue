@@ -3,7 +3,7 @@
         <header>
             <p class="more-music"></p>
             <p class="title">账号</p>
-            <img src='../../static/images/volum.png' alt="" class="volum-img"  @click="playing"/>
+            <canvas id="rhythm" class="volum-img" @click="playing"></canvas>
         </header>
         <div class="user-base-info">
             <div class="base-info-box">
@@ -181,13 +181,41 @@ export default {
         }
     },
     created: function() {
-
+        this.timer=setInterval(()=>{
+            if(GlobalData.AudioPlayStatus){
+                this.drawRhythm();
+            }
+        },1000)
     },
+    mounted:function(){
+        this.drawRhythm();
+    },  
     methods: {
         //进入音乐播放界面
         playing: function() {
             this.$router.push({ name: 'playView' });
-        }
+        },
+        //canvas绘制节奏动画
+        drawRhythm: function() {
+            const cav = document.getElementById('rhythm');
+            const ctx = cav.getContext('2d');
+            cav.width = '24';
+            cav.height = '22';
+            ctx.lineWidth = '2';
+            ctx.strokeStyle = '#fff';
+            //绘制频率线
+            for (let i = 2; i < cav.width; i += 5) {
+                ctx.beginPath();
+                ctx.moveTo(i, cav.height);
+                ctx.lineTo(i, Math.abs(parseInt(Math.random()*cav.height)-5));
+                ctx.stroke();
+            }
+            // GlobalData.isDrawRhythm=true;
+
+        },
+    },
+    destroyed:function(){
+        clearInterval(this.timer);
     }
 }
 </script>
@@ -298,7 +326,7 @@ header {
 
 .info-item-detail {
     width: 100%;
-    height: 28px;
+    height: 35px;
     border-right: 1px solid #eaeaea;
     font-size: 12px;
     overflow: hidden;
@@ -326,7 +354,7 @@ header {
 .edit-data {
     width: 13px;
     height: 13px;
-    margin-top: 10px;
+    margin-top: 8px;
 }
 
 .user-function-list {

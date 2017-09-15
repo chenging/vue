@@ -1,12 +1,12 @@
 <template>
     <div v-cloak>
         <header>
-            <img src='../../static/images/friends.png' alt="" class="voice-img"   >
+            <img src='../../static/images/friends.png' alt="" class="voice-img">
             <div class="search-box">
                 <div class="switch-item" :class="{'checked':!ischecked}" @click="contentSwitch">动态</div>
                 <div class="switch-item" :class="{'checked':ischecked}" @click="contentSwitch">附近</div>
             </div>
-            <img src='../../static/images/volum.png' alt="" class="volum-img" @click="playing">
+            <canvas id="rhythm" class="volum-img" @click="playing"></canvas>
         </header>
         <div class="dynamic-video">
             <div class="dynamic-box">
@@ -122,7 +122,14 @@ export default {
         }
     },
     created: function() {
-
+        this.timer = setInterval(() => {
+            if (GlobalData.AudioPlayStatus) {
+                this.drawRhythm();
+            }
+        }, 1000)
+    },
+    mounted: function() {
+        this.drawRhythm();
     },
     methods: {
         //切换显示附近和动态
@@ -130,9 +137,30 @@ export default {
             this.ischecked = !this.ischecked;
         },
         //进入音乐播放界面
-        playing:function(){
-            this.$router.push({name:'playView'});
-        }
+        playing: function() {
+            this.$router.push({ name: 'playView' });
+        },
+        //canvas绘制节奏动画
+        drawRhythm: function() {
+            const cav = document.getElementById('rhythm');
+            const ctx = cav.getContext('2d');
+            cav.width = '24';
+            cav.height = '22';
+            ctx.lineWidth = '2';
+            ctx.strokeStyle = '#fff';
+            //绘制频率线
+            for (let i = 2; i < cav.width; i += 5) {
+                ctx.beginPath();
+                ctx.moveTo(i, cav.height);
+                ctx.lineTo(i, Math.abs(parseInt(Math.random() * cav.height) - 5));
+                ctx.stroke();
+            }
+            // GlobalData.isDrawRhythm=true;
+
+        },
+    },
+    destroyed:function(){
+        clearInterval(this.timer);
     }
 }
 </script>
@@ -285,9 +313,11 @@ header {
     margin-top: 20px;
     display: flex;
 }
-.video-item:last-child{
+
+.video-item:last-child {
     margin-bottom: 70px;
 }
+
 .publisher-portrait {
     width: 45px;
     height: 40px;
@@ -354,24 +384,28 @@ header {
     height: 165px;
     background: #886ae1;
 }
-.look-live{
+
+.look-live {
     font-size: 14px;
     color: #999;
     margin-top: 10px;
 }
-.interaction-box{
+
+.interaction-box {
     margin-top: 20px;
     width: 100%;
     display: flex;
     justify-content: space-between;
 }
-.interaction-box p{
+
+.interaction-box p {
     display: flex;
     align-items: center;
     font-size: 12px;
     color: #999;
 }
-.interaction-icon{
+
+.interaction-icon {
     width: 15px;
     height: 15px;
     margin-right: 5px;

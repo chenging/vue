@@ -2,14 +2,15 @@
     <div v-cloak class="play-bg">
         <div class="play-title">
             <img src="../../static/images/play-back.png" alt="" class="back" @click="back">
-            <p class="song-name">歌曲名称</p>
+            <p class="song-name">{{musicTitle}}</p>
             <img src="../../static/images/play-Share.png" alt="" class="share">
         </div>
         <canvas id="playAnimation">
             <img src="../../static/images/record.png" id="record" class="play-animation">
         </canvas>
         <div class="interaction-box">
-            <img src="../../static/images/play-collection.png" alt="" class="interaction-icon">
+            <img v-if="!isCollected" src="../../static/images/play-collection.png" alt="" class="interaction-icon" @click="collect">
+            <img v-if="isCollected" src="../../static/images/play-collected.png" alt="" class="interaction-icon" @click="collect">
             <img src="../../static/images/play-download.png" alt="" class="interaction-icon">
             <p class="comment">
                 <img src="../../static/images/play-comment.png" alt="" class="interaction-icon">
@@ -28,7 +29,40 @@
             <img v-if="playStatus" @click="play" src="../../static/images/play-pause.png" alt="" class="play-controll-icon-play">
             <img v-if="!playStatus" @click="play" src="../../static/images/play-playing.png" alt="" class="play-controll-icon-play">
             <img src="../../static/images/play-next.png" alt="" class="play-controll-icon-switch" @click="nextSong">
-            <img src="../../static/images/play-list-more.png" alt="" class="play-controll-icon-edge">
+            <img src="../../static/images/play-list-more.png" alt="" class="play-controll-icon-edge" @click="showList">
+        </div>
+        <div class="play-list-box" v-if="isShowList">
+            <ul class="play-list">
+                <li>
+                    <div class="play-pattern-box">
+                        <img src="../../static/images/list-random.png" class="play-list-pattern">
+                        <span>随机播放(12)</span>
+                    </div>
+                    <div class="play-operation-box">
+                        <div class="play-operation-collect">
+                            <img src="../../static/images/list-collecting.png" class="play-list-pattern">
+                            <span>收藏</span>
+                        </div>
+                        <div class="play-operation-clear">
+                            <img src="../../static/images/list-clear.png" alt="" class="play-list-pattern">
+                            <span>清空</span>
+                        </div>
+                    </div>
+                </li>
+                <div class="cur-playing-list">
+                    <div class="cur-playing-item" v-for="(item,index) in musicList">
+                        <p class="cur-playing-item-title" :class="{'current-playing':index===playingIndex}" @click="selectMusic(index)">
+                            <img v-if="index===playingIndex" src="../../static/images/audio.png" class="audio-img">
+                            <span>{{item.name}}</span>
+                        </p>
+                        <div class="operation-btn">
+                            <img src="../../static/images/href.png" class="copy-href">
+                            <img src="../../static/images/list-close.png" class="close-img">
+                        </div>
+                    </div>
+                </div>
+                <p class="hide-box" @click="hideBox">关闭</p>
+            </ul>
         </div>
     </div>
 </template>
@@ -37,14 +71,14 @@ export default {
     data() {
         return {
             playStatus: false,
-            src: [
-                'http://m10.music.126.net/20170914184206/2e2c2700252281ce220fb5db4930dd8f/ymusic/80cd/afaa/0422/f323d3e939261677ce1b383e3194c751.mp3',
-                'http://up.xzdown.com/mp3/2017-09-14/1505390954.mp3', 'http://up.xzdown.com/mp3/2017-09-14/1505386184.mp3',
-                'http://up.xzdown.com/mp3/2017-09-14/1505383763.mp3', 'http://up.xzdown.com/mp3/2017-09-14/1505383305.mp3',
-                'http://up.xzdown.com/mp3/2017-09-14/1505367381.mp3'
-            ],
+            musicList: [],
+            musicTitle: '音乐标题',
             curPlayTime: '00:00',//当前已播放时长
             totalPlayTime: '00:00',//总时长
+            isCollected: false,
+            isShowList: false,
+            playingIndex: 0
+
         }
     },
     created: function() {
@@ -71,53 +105,90 @@ export default {
         back: function() {
             history.back(1);
         },
+        //收藏,取消收藏
+        collect: function() {
+            this.isCollected = !this.isCollected;
+            GlobalData.isCollected = this.isCollected;
+        },
+        //显示播放列表
+        showList: function() {
+            this.isShowList = true;
+            this.playingIndex = GlobalData.index;
+        },
+        //隐藏播放列表
+        hideBox: function() {
+            this.isShowList = false;
+        },
+        //选择歌曲
+        selectMusic: function(index) {
+            this.playingIndex = GlobalData.index = index;
+            this.player.src = this.musicList[GlobalData.index].src;
+            this.musicTitle = this.musicList[GlobalData.index].name;
+            this.player.play();
+            this.playStatus = true;
+            GlobalData.AudioPlayStatus = this.playStatus;
+        },
         //播放、暂停
-        play: function() {
+        play: function(e) {
             //播放器就绪后可进行播放操作
             if (this.player.readyState == 4) {
                 this.playStatus = !this.playStatus;
                 if (this.playStatus) {
                     this.player.play();
+
                 } else {
                     this.player.pause();
                 }
                 //播放暂停改变全局播放状态
                 GlobalData.AudioPlayStatus = this.playStatus;
+            } else {
+                this.clickAnimation(e);
             }
+            this.musicTitle = this.musicList[GlobalData.index].name;
         },
         //上一曲
         lastSong: function() {
             if (GlobalData.index > 0) {
                 GlobalData.index -= 1;
             }
-            this.player.src = this.src[GlobalData.index];
+            this.player.src = this.musicList[GlobalData.index].src;
+            this.musicTitle = this.musicList[GlobalData.index].name;
             this.player.play();
             this.playStatus = true;
             GlobalData.AudioPlayStatus = this.playStatus;
         },
         //下一曲
         nextSong: function() {
-            if (GlobalData.index < this.src.length - 1) {
+            if (GlobalData.index < this.musicList.length - 1) {
                 GlobalData.index += 1;
             } else {
                 GlobalData.index = 0;
             }
-            this.player.src = this.src[GlobalData.index];
+            this.player.src = this.musicList[GlobalData.index].src;
+            this.musicTitle = this.musicList[GlobalData.index].name;
             this.player.play();
             this.playStatus = true;
             GlobalData.AudioPlayStatus = this.playStatus;
         },
-        //音频顺序控制函数
-        audioOrder:function(index){
-            const len=this.src.length;
-            if(index<len-1){
-
+        //音频控制函数
+        audioOrder: function(e, index) {
+            if (this.player.readyState == 4) {
+                this.player.play();
+                this.playStatus = true;
+            } else {
+                this.player.pause();
+                this.playStatus = false;
             }
+            this.player.src = this.musicList[GlobalData.index].src;
+            GlobalData.AudioPlayStatus = this.playStatus;
         },
         //根据isAudioSrc判断是否已经初始化播放器，如果为false则注入歌曲链接
         initPlayer: function() {
+            this.musicList = GlobalData.musicList;
+            this.isCollected = GlobalData.isCollected;
             if (!GlobalData.isAudioSrc) {
-                this.player.src = this.src[GlobalData.index];
+                this.player.src = this.musicList[GlobalData.index].src;
+                this.musicTitle = this.musicList[GlobalData.index].name;
                 GlobalData.isAudioSrc = true;
             }
         },
@@ -137,17 +208,17 @@ export default {
             this.totalPlayTime = this.transformToMinutes(this.player.duration);
             if (this.player.duration) {
                 if (this.curPlayTime === this.totalPlayTime) {
-                    if (GlobalData.index < this.src.length - 1) {
+                    if (GlobalData.index < this.musicList.length - 1) {
                         GlobalData.index += 1;
-                        this.player.src = this.src[GlobalData.index];
                         this.player.play();
                         this.playStatus = true;
                     } else {
                         GlobalData.index = 0;
-                        this.player.src = this.src[GlobalData.index];
                         this.player.pause();
                         this.playStatus = false;
                     }
+                    this.player.src = this.musicList[GlobalData.index].src;
+                    this.musicTitle = this.musicList[GlobalData.index].name;
                     GlobalData.AudioPlayStatus = this.playStatus;
 
                 }
@@ -164,14 +235,14 @@ export default {
             cav.height = '30';
             //计算进度条
             const progress = parseInt(curTime * (cav.width - cav.height) / totalTime);
-            //画未播放时的进度条
+            //绘制未播放时的进度条
             ctx.beginPath();
             ctx.strokeStyle = '#bab3b3';
             ctx.lineWidth = '3';
             ctx.moveTo(0, cav.height / 2);
             ctx.lineTo(cav.width, cav.height / 2);
             ctx.stroke();
-            //画播放时滑动的圆
+            //绘制播放时滑动的圆
             ctx.beginPath();
             ctx.fillStyle = '#fff';
             if (progress) {
@@ -180,7 +251,7 @@ export default {
                 ctx.arc(cav.height / 2, cav.height / 2, cav.height / 2, 0, 2 * Math.PI);
             }
             ctx.fill();
-            //画里面的同心小圆
+            //绘制里面的同心小圆
             ctx.beginPath();
             ctx.fillStyle = "#9275dc";
             if (progress) {
@@ -227,10 +298,6 @@ export default {
             //计算最内侧圆弧上图片终点坐标点
             const imgTarX = (cav.width / 2) + Math.cos(-45 * Math.PI / 180) * r * 50 / 100;
             const imgTarY = (cav.width / 2) + Math.sin(-45 * Math.PI / 180) * r * 50 / 100;
-            // ctx.beginPath();
-            // ctx.fillStyle='#fff';
-            // ctx.arc(imgTarX,imgTarY,5,0,2*Math.PI);
-            // ctx.fill();
             img.onload = function() {
                 ctx.drawImage(img, imgX, imgY, imgTarX - imgX, imgX - 10);
             }
@@ -353,5 +420,137 @@ export default {
 .play-controll-icon-play {
     width: 46px;
     height: 46px;
+}
+
+.play-list-box {
+    width: 100%;
+    height: 100%;
+    background: rgba(24, 23, 23, 0.53);
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+.play-list {
+    width: 100%;
+    height: 330px;
+    background: #fff;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+}
+
+.play-list li {
+    list-style: none;
+}
+
+.play-list li:first-child {
+    width: 100%;
+    height: 50px;
+    border-bottom: 1px solid #eaeaea;
+    display: flex;
+    justify-content: space-between;
+}
+
+.play-list-pattern {
+    width: 20px;
+    height: 18px;
+    margin-right: 10px;
+}
+
+.play-pattern-box {
+    margin-left: 3%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    font-size: 15px;
+    color: #333;
+}
+
+.play-operation-box {
+    margin-right: 3%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    font-size: 15px;
+    color: #333;
+}
+
+.play-operation-collect {
+    height: 20px;
+    display: flex;
+    align-items: center;
+    padding-right: 20px;
+    border-right: 1px solid #eaeaea;
+}
+
+.play-operation-clear {
+    height: 20px;
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
+}
+
+.cur-playing-list {
+    width: 100%;
+    height: 230px;
+    overflow-y: scroll;
+}
+
+.cur-playing-item {
+    width: 97%;
+    margin-left: 3%;
+    height: 45px;
+    display: flex;
+    border-bottom: 1px solid #eaeaea;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.cur-playing-item-title {
+    width: 78%;
+    font-size: 15px;
+    color: #333;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.operation-btn {
+    width: 19%;
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 3%;
+}
+
+.copy-href {
+    width: 17px;
+    height: 15px;
+    margin-right: 20px;
+}
+
+.close-img {
+    width: 15px;
+    height: 15px;
+}
+.audio-img{
+    width: 15px;
+    height: 15px;
+    margin-right: 10px;
+}
+.hide-box {
+    width: 100%;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    color: #333;
+}
+
+.current-playing {
+    color: #856fbf;
 }
 </style>

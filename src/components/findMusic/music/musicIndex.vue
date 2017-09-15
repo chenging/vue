@@ -8,15 +8,15 @@
                 <p><img src='../../../static/images/fm.png' class="radio-img" /></p>
                 <p>私人FM</p>
             </div>
-            <div class="radio-station-item">
+            <div class="radio-station-item" @click="dayRecommend">
                 <p><img src='../../../static/images/ic_recommend.png' class="radio-img" /></p>
                 <p>每日推荐</p>
             </div>
-            <div class="radio-station-item">
+            <div class="radio-station-item" @click="dayRecommend">
                 <p><img src='../../../static/images/sheet-check3-o.png' class="radio-img last" /></p>
                 <p>歌单</p>
             </div>
-            <div class="radio-station-item">
+            <div class="radio-station-item" @click="dayRecommend">
                 <p><img src='../../../static/images/ranking_icon-01.png' class="radio-img last" /></p>
                 <p>排行榜</p>
             </div>
@@ -67,12 +67,15 @@ export default {
         }
     },
     created: function() {
-        
+
     },
     methods: {
         //跳转私人FM音乐播放界面
-        getIntoFm:function(){
-            this.$router.push({name:'fmPlayView'});
+        getIntoFm: function() {
+            this.$router.push({ name: 'fmPlayView' });
+        },
+        dayRecommend: function(e) {
+            this.clickAnimation(e);
         }
     }
 }
@@ -218,7 +221,8 @@ footer {
     width: 25px;
     height: 25px;
 }
-.music-list:last-child{
+
+.music-list:last-child {
     margin-bottom: 70px;
 }
 </style>

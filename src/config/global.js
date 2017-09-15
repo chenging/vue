@@ -6,6 +6,8 @@
     isMedioSrc：是否已注入视频播放链接，默认为未注入
     isDrawRhythm：是否已绘制过频率线
     index:当前歌曲索引值
+    isCollected:是否已收藏,
+    musicList:音乐列表
 */
 global.GlobalData={
     AudioPlayStatus:false,
@@ -13,5 +15,14 @@ global.GlobalData={
     MediePlayStatus:false,
     isMedioSrc:false,
     isDrawRhythm:false,
-    index:0
+    index:0,
+    isCollected:false,
+    musicList:[
+        {name:'测试歌曲1',src:'http://m10.music.126.net/20170914184206/2e2c2700252281ce220fb5db4930dd8f/ymusic/80cd/afaa/0422/f323d3e939261677ce1b383e3194c751.mp3',id:'1'},
+        {name:'测试歌曲2',src:'http://up.xzdown.com/mp3/2017-09-14/1505390954.mp3',id:'2'},
+        {name:'测试歌曲3',src:'http://up.xzdown.com/mp3/2017-09-14/1505386184.mp3',id:'3'},
+        {name:'测试歌曲4',src:'http://up.xzdown.com/mp3/2017-09-14/1505383763.mp3',id:'4'},
+        {name:'测试歌曲5',src:'http://up.xzdown.com/mp3/2017-09-14/1505383305.mp3',id:'5'},
+        {name:'测试歌曲6',src:'http://up.xzdown.com/mp3/2017-09-14/1505367381.mp3',id:'6'}
+    ]
 }

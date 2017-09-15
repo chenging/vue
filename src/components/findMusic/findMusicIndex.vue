@@ -1,7 +1,7 @@
 <template>
     <div v-cloak>
         <header>
-            <img src='../../static/images/voice.png' alt="" class="voice-img" />
+            <img src='../../static/images/voice.png' alt="" class="voice-img" @click="inputVoice"/>
             <div class="search-box">
                 <img src='../../static/images/search.png' alt="" class="search-img" />
                 <input type="text" class="search-input" placeholder="搜索歌词、音乐、电台" />
@@ -47,10 +47,10 @@ export default {
             const ctx = cav.getContext('2d');
             cav.width = '24';
             cav.height = '22';
-            ctx.lineWidth = '3';
+            ctx.lineWidth = '2';
             ctx.strokeStyle = '#fff';
             //绘制频率线
-            for (let i = 3; i < cav.width; i += 5) {
+            for (let i = 2; i < cav.width; i += 5) {
                 ctx.beginPath();
                 ctx.moveTo(i, cav.height);
                 ctx.lineTo(i, Math.abs(parseInt(Math.random()*cav.height)-5));
@@ -58,6 +58,10 @@ export default {
             }
             // GlobalData.isDrawRhythm=true;
 
+        },
+        //输入语音
+        inputVoice:function(e){
+            this.clickAnimation(e);
         }
     },
     destroyed: function() {
