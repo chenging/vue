@@ -21,39 +21,21 @@
                 <p>排行榜</p>
             </div>
         </div>
-        <div v-for="(item,index) in musicList" class="music-list">
+        <div v-for="(item,index) in musicTitleList" class="music-list">
             <div class="classify-title">
                 <p class="classify-title-bg"></p>
                 <p class="classify-ttitle-content">{{item}}</p>
                 <img src="../../../static/images/next.png" alt="" class="next-img">
             </div>
             <div class="classify-list">
-                <div class="list-item">
+                <div class="list-item" v-for="(item,index) in musicList" @click="selectMusicList(item.id)">
                     <div class="list-item-bg">
                         <div class="list-item-title">
                             <img src="../../../static/images/icon_listen.png" alt="" class="icon-listen">
                             <span>20万</span>
                         </div>
                     </div>
-                    <p class="list-item-describe">夏至|忽而今夏又一季</p>
-                </div>
-                <div class="list-item">
-                    <div class="list-item-bg">
-                        <div class="list-item-title">
-                            <img src="../../../static/images/icon_listen.png" alt="" class="icon-listen">
-                            <span>20万</span>
-                        </div>
-                    </div>
-                    <p class="list-item-describe">夏至|忽而今夏又一季</p>
-                </div>
-                <div class="list-item">
-                    <div class="list-item-bg">
-                        <div class="list-item-title">
-                            <img src="../../../static/images/icon_listen.png" alt="" class="icon-listen">
-                            <span>20万</span>
-                        </div>
-                    </div>
-                    <p class="list-item-describe">夏至|忽而今夏又一季</p>
+                    <p class="list-item-describe">{{item.name}}</p>
                 </div>
             </div>
         </div>
@@ -63,19 +45,25 @@
 export default {
     data() {
         return {
-            musicList: ['推荐歌单', '独家放送', '最新音乐', '推荐MV', '精选专栏', '主播电台']
+            musicTitleList: ['推荐歌单', '独家放送', '最新音乐', '推荐MV', '精选专栏', '主播电台'],
+            musicList:[]
         }
     },
     created: function() {
-
+        this.musicList=GlobalData.musicList;
     },
     methods: {
         //跳转私人FM音乐播放界面
         getIntoFm: function() {
             this.$router.push({ name: 'fmPlayView' });
         },
+        //每日推荐
         dayRecommend: function(e) {
             this.clickAnimation(e);
+        },
+        //选择歌单
+        selectMusicList:function(id){
+            console.log(id)
         }
     }
 }
