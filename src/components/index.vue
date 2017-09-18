@@ -20,7 +20,7 @@
                 </p>
                 <p class="bottom-nav-text">朋友</p>
             </router-link>
-             <router-link tag="li" class="bottom-nav" to="/userIndex" active-class="cur-index">
+             <router-link tag="li" class="bottom-nav" :to="isLogin?{name:'userIndex'}:{name:'login'}" active-class="cur-index">
                 <p class="bottom-nav-text">
                     <img src="../static/images/user.png" alt="" class="bottom-nav-img-user">
                 </p>
@@ -34,20 +34,29 @@ export default {
     data() {
         return {
             navList: ['音乐', '视频', '电台'],
-            isPlayView:false
+            isPlayView:false,
+            isLogin:false
         }
     },
     created: function() {
-
+        
     },
     methods: {
-        
+        //用户是否登录函数
+        hasUserInfo:function(){
+        if(localStorage.getItem('userInfo')){
+            this.isLogin=true;
+        }else{
+            this.isLogin=false;
+        }
+        }
     },
     watch:{
         //监听路由变化，动态切换播放界面和功能页
         "$route":function(to,from){
             const curRoute=this.$route.name;
-            if(curRoute==='playView'||curRoute==='fmPlayView'){
+            this.hasUserInfo();
+            if(curRoute==='playView'||curRoute==='fmPlayView'||curRoute==='telephoneLogin'||curRoute==='login'){
                 this.isPlayView=true;
             }else{
                 this.isPlayView=false;
@@ -90,7 +99,7 @@ export default {
 }
 
 .bottom-nav-img {
-    width: 22px;
+    width: 24px;
     height: 25px;
 }
 

@@ -80,6 +80,7 @@ header {
     position: fixed;
     top: 0;
     left: 0;
+    z-index: 99999;
 }
 
 .voice-img {
@@ -128,6 +129,7 @@ header {
     top: 45px;
     left: 0;
     border-bottom: 1px solid #dfdfdf;
+    z-index: 99999;
 }
 
 .nav {

@@ -1,22 +1,18 @@
 //SPA主页
 import Index from '../components/index.vue';
-//发现音乐(一级路由)
+//一级路由
 import FindMusicIndex from '../components/findMusic/findMusicIndex.vue';
-//我的音乐(一级路由)
 import MyMusicIndex from '../components/myMusic/myMusicIndex.vue';
-//朋友(一级路由)
 import FriendsIndex from '../components/friends/friendsIndex.vue';
-//用户中心(一级路由)
 import UserIndex from '../components/user/userIndex.vue';
-//播放界面(普通歌曲)
+import Login from '../components/user/login.vue';
+import TelephoneLogin from '../components/user/telephoneLogin.vue';
+//二级路由
+
 import PlayView from '../components/playView/playView.vue';
-//FM播放界面
 import FmPlayView from '../components/playView/fmPlayView.vue';
-//音乐频道(二级路由)
 import MusicIndex from '../components/findMusic/music/musicIndex.vue';
-//视频频道(二级路由)
 import VideoIndex from '../components/findMusic/video/videoIndex.vue';
-//电台频道(二级路由)
 import RadioIndex from '../components/findMusic/radioStation/radioIndex.vue';
 
 
@@ -61,7 +57,19 @@ export default [
             {
                 path:'/userIndex',
                 component:UserIndex,
+                name:'userIndex',
                 children:[]
+            },
+            {
+                path:'/login',
+                component:Login,
+                name:'login',
+                children:[]
+            },
+            {
+                path:'/telephoneLogin',
+                component:TelephoneLogin,
+                name:'telephoneLogin'
             },
             {
                 path:'/playView',

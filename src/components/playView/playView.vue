@@ -103,7 +103,7 @@ export default {
     },
     methods: {
         back: function() {
-            history.back(1);
+            this.$router.go(-1);
         },
         //收藏,取消收藏
         collect: function() {

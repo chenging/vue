@@ -9,7 +9,7 @@
             <div class="base-info-box">
                 <img src="" alt="" class="portrait">
                 <div class="username">
-                    <p>chenging565</p>
+                    <p>{{userInfo.name||userInfo.phone}}</p>
                     <img src="../../static/images/LV5.png" alt="" class="level">
                 </div>
             </div>
@@ -170,26 +170,31 @@
                     <img src="../../static/images/collect-next.png" alt="" class="next">
                 </div>
             </div>
+            <div class="exit-login" @click="exitLogin">退出登录</div>
         </div>
+        
     </div>
 </template>
 <script>
 export default {
     data() {
         return {
-
+            userInfo:{}
         }
     },
     created: function() {
-        this.timer=setInterval(()=>{
-            if(GlobalData.AudioPlayStatus){
+        //获取登录的用户缓存信息
+        this.userInfo=JSON.parse(localStorage.getItem('userInfo'));
+        console.log(this.userInfo)
+        this.timer = setInterval(() => {
+            if (GlobalData.AudioPlayStatus) {
                 this.drawRhythm();
             }
-        },1000)
+        }, 1000)
     },
-    mounted:function(){
+    mounted: function() {
         this.drawRhythm();
-    },  
+    },
     methods: {
         //进入音乐播放界面
         playing: function() {
@@ -207,14 +212,18 @@ export default {
             for (let i = 2; i < cav.width; i += 5) {
                 ctx.beginPath();
                 ctx.moveTo(i, cav.height);
-                ctx.lineTo(i, Math.abs(parseInt(Math.random()*cav.height)-5));
+                ctx.lineTo(i, Math.abs(parseInt(Math.random() * cav.height) - 5));
                 ctx.stroke();
             }
             // GlobalData.isDrawRhythm=true;
-
         },
+        //退出登录
+        exitLogin:function(){
+            localStorage.clear();
+            this.$router.push('/login');
+        }
     },
-    destroyed:function(){
+    destroyed: function() {
         clearInterval(this.timer);
     }
 }
@@ -361,6 +370,7 @@ header {
     width: 100%;
     background: #efeff0;
     overflow: hidden;
+    margin-bottom: 60px;
 }
 
 .user-function-list-item {
@@ -409,5 +419,17 @@ header {
 
 .no-border {
     border: none;
+}
+.exit-login{
+    width: 100%;
+    height: 45px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    color: #9374ee;
+    background: #fff;
 }
 </style>
