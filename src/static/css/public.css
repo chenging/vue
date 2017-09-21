@@ -13,3 +13,70 @@ li {
 [v-cloak] {
     display: none;
 }
+
+.info-notice-frame {
+    width: 100%;
+    height: 100%;
+    background: rgba(16, 1, 1, 0.7);
+    position: fixed;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+}
+
+.info-notice-box {
+    width: 80%;
+    background: #fff;
+    margin: 50% 10%;
+    overflow: hidden;
+    border-radius: 5px;
+}
+
+.info-notice-box-title {
+    width: 100%;
+    height: 30px;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid #eaeaea;
+    background: #9374ee;
+    color: #fff;
+}
+
+.info-notice-box-content {
+    width: 90%;
+    margin-left: 5%;
+    height: 80px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid #eaeaea;
+}
+
+.info-notice-box-btn {
+    width: 100%;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+}
+
+.info-notice-box-cancel-btn {
+    width: 50%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-right: 1px solid #eaeaea;
+}
+
+.info-notice-box-confirm-btn {
+    width: 50%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #9374ee;
+}

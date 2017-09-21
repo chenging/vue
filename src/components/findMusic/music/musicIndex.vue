@@ -12,11 +12,11 @@
                 <p><img src='../../../static/images/ic_recommend.png' class="radio-img" /></p>
                 <p>每日推荐</p>
             </div>
-            <div class="radio-station-item" @click="dayRecommend">
+            <div class="radio-station-item" @click="songSheet">
                 <p><img src='../../../static/images/sheet-check3-o.png' class="radio-img last" /></p>
                 <p>歌单</p>
             </div>
-            <div class="radio-station-item" @click="dayRecommend">
+            <div class="radio-station-item" @click="ranking">
                 <p><img src='../../../static/images/ranking_icon-01.png' class="radio-img last" /></p>
                 <p>排行榜</p>
             </div>
@@ -46,11 +46,12 @@ export default {
     data() {
         return {
             musicTitleList: ['推荐歌单', '独家放送', '最新音乐', '推荐MV', '精选专栏', '主播电台'],
-            musicList:[]
+            musicList: []
         }
     },
     created: function() {
-        this.musicList=GlobalData.musicList;
+        this.musicList = GlobalData.musicList;
+        this.getMusicList();
     },
     methods: {
         //跳转私人FM音乐播放界面
@@ -59,11 +60,25 @@ export default {
         },
         //每日推荐
         dayRecommend: function(e) {
-            // this.clickAnimation(e);
+            this.$router.push({ name: 'recommendIndex' });
+        },
+        //歌单
+        songSheet: function() {
+            this.$router.push({ name: 'songSheet' });
+        },
+        //排行榜
+        ranking: function() {
+            this.$router.push({ name: 'ranking' });
         },
         //选择歌单
-        selectMusicList:function(id){
+        selectMusicList: function(id) {
             console.log(id)
+        },
+        //获取音乐列表
+        getMusicList: function() {
+            this.publicHttp({ name: '1' }, 'post', 'http://localhost:9999/musicList', (res) => {
+                // console.log(res.data.data);
+            })
         }
     }
 }

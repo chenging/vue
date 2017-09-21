@@ -66,13 +66,13 @@ export default {
         },
         //注册
         register: function() {
-            this.$router.push({ name: 'telephoneLogin' });
+            this.$router.push({ name: 'register' });
         },
         //游客试用，随机生成用户名和密码
         generateAccount:function(){
-            this.userInfo.password='123456';
-            localStorage.setItem('userInfo',JSON.stringify(this.userInfo));
-            this.$router.push('/userIndex');
+            // this.userInfo.password='123456';
+            // localStorage.setItem('userInfo',JSON.stringify(this.userInfo));
+            // this.$router.push('/userIndex');
         }
     }
 }

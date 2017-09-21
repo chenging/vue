@@ -61,7 +61,7 @@ export default {
         },
         //输入语音
         inputVoice:function(e){
-            this.clickAnimation(e);
+            // this.clickAnimation(e);
         }
     },
     destroyed: function() {

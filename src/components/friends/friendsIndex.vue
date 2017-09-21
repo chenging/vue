@@ -1,7 +1,7 @@
 <template>
     <div v-cloak>
         <header>
-            <img src='../../static/images/friends.png' alt="" class="voice-img">
+            <img src='../../static/images/friends.png' alt="" class="voice-img" @click="addFollow">
             <div class="search-box">
                 <div class="switch-item" :class="{'checked':!ischecked}" @click="contentSwitch">动态</div>
                 <div class="switch-item" :class="{'checked':ischecked}" @click="contentSwitch">附近</div>
@@ -39,7 +39,7 @@
             </div>
         </div>
         <div class="video-list">
-            <div class="video-item">
+            <div class="video-item" v-for="(item,index) in videoList">
                 <img src="" alt="" class="publisher-portrait">
                 <div class="video-item-content">
                     <div class="video-item-title">
@@ -53,44 +53,8 @@
                             <span>关注</span>
                         </p>
                     </div>
-                    <p class="video-detail-title">孟德现场表演新单</p>
-                    <video src="" class="video"></video>
-                    <p class="look-live">——观看精彩音乐live</p>
-                    <div class="interaction-box">
-                        <p>
-                            <img src="../../static/images/thumbs.png" alt="" class="interaction-icon">
-                            <span>43</span>
-                        </p>
-                        <p>
-                            <img src="../../static/images/comment.png" alt="" class="interaction-icon">
-                            <span>16</span>
-                        </p>
-                        <p>
-                            <img src="../../static/images/share.png" alt="" class="interaction-icon">
-                            <span>12</span>
-                        </p>
-                        <p>
-                            <img src="../../static/images/More.png" alt="" class="interaction-icon">
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="video-item">
-                <img src="" alt="" class="publisher-portrait">
-                <div class="video-item-content">
-                    <div class="video-item-title">
-                        <div class="video-title">
-                            <p class="video-title-name">youtube翻唱...</p>
-                            <p class="video-title-time">11:00</p>
-                        </div>
-                        <p class="video-release">发布短视频:</p>
-                        <p class="follow-box">
-                            <img src="../../static/images/plus.png" alt="" class="plus">
-                            <span>关注</span>
-                        </p>
-                    </div>
-                    <p class="video-detail-title">孟德现场表演新单</p>
-                    <video src="" class="video"></video>
+                    <p class="video-detail-title">{{item.name}}</p>
+                    <video :src="item.src" class="video" controls></video>
                     <p class="look-live">——观看精彩音乐live</p>
                     <div class="interaction-box">
                         <p>
@@ -118,13 +82,28 @@
 export default {
     data() {
         return {
-            ischecked: false
+            ischecked: false,
+            videoList:[],
+            audioPlayStatus: false,//保存音频播放状态,在视频播放结束或暂停时还原音频播放状态
         }
     },
     created: function() {
+        // this.videoList = GlobalData.videoList;
+        this.audioPlayStatus = GlobalData.AudioPlayStatus;
+        //判断播放视频前音乐是否处于播放状态，如果处于播放状态，播放视频时暂停音频播放，并在视频播放结束或者暂停时还原音乐播放
         this.timer = setInterval(() => {
             if (GlobalData.AudioPlayStatus) {
                 this.drawRhythm();
+            }
+            if (this.audioOrVideo()!==true) {
+                GlobalData.AudioPlayStatus = false;
+                this.player.pause();
+                // this.videoList.splice(this.audioOrVideo()[1],1);
+            } else {
+                if (this.audioPlayStatus) {
+                    GlobalData.AudioPlayStatus = this.audioPlayStatus;
+                    this.player.play();
+                }
             }
         }, 1000)
     },
@@ -156,8 +135,30 @@ export default {
                 ctx.stroke();
             }
             // GlobalData.isDrawRhythm=true;
-
         },
+        //检测视频是否正处于播放状态
+        audioOrVideo: function() {
+            let arr = this.toArray();
+            for (let i = 0, len = arr.length; i < len; i++) {
+                if (!arr[i].paused) {
+                    return [false,i]
+                }
+            }
+            return true;
+        },
+        //将类数组转为数组
+        toArray: function() {
+            let arr = [];
+            const videoPlayer = document.getElementsByClassName('video');
+            for (let i = 0, len = videoPlayer.length; i < len; i++) {
+                arr[i] = videoPlayer[i];
+            }
+            return arr;
+        },
+        //添加关注
+        addFollow:function(){
+            this.$router.push({name:'addFollow'});
+        }
     },
     destroyed:function(){
         clearInterval(this.timer);
@@ -175,6 +176,7 @@ header {
     position: fixed;
     top: 0;
     left: 0;
+    z-index: 99999;
 }
 
 .voice-img {
@@ -222,6 +224,7 @@ header {
     left: 0;
     background: #fff;
     border-bottom: 1px solid #eaeaea;
+    z-index: 99999;
 }
 
 .dynamic-box {
@@ -382,7 +385,6 @@ header {
 .video {
     width: 100%;
     height: 165px;
-    background: #886ae1;
 }
 
 .look-live {

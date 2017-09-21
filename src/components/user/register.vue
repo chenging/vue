@@ -2,20 +2,23 @@
     <div v-cloak>
         <div class="header">
             <img src="../../static/images/play-back.png" class="back" @click="back">
-            <p class="header-title">手机号登录</p>
+            <p class="header-title">手机号注册</p>
         </div>
         <div class="input-content">
             <p class="input-item">
                 <img src="../../static/images/login-phone.png" class="login-icon">
-                <input type="text" placeholder="手机号" class="input-text" v-model="phone">
+                <input type="text" placeholder="请输入手机号" class="input-text" v-model="phone">
             </p>
             <p class="input-item">
                 <img src="../../static/images/login-password.png" class="login-icon">
-                <input type="password" placeholder="密码" class="input-text" v-model="password">
+                <input type="password" placeholder="请输入密码" class="input-text" v-model="password">
             </p>
-            <button class="login-btn" @click="login">登录</button>
+            <p class="input-item">
+                <img src="../../static/images/login-password.png" class="login-icon">
+                <input type="password" placeholder="请确认密码" class="input-text" v-model="confirmPassword">
+            </p>
+            <button class="login-btn" @click="register">注册</button>
         </div>
-        <p class="reset-password">重设密码</p>
         <div class="info-notice-frame" v-if="isShow">
             <div class="info-notice-box">
                 <p class="info-notice-box-title">温馨提示</p>
@@ -34,6 +37,7 @@ export default {
         return {
             phone: '',
             password: '',
+            confirmPassword:'',
             isShow:false,
             noticeContent:'',
             status:''
@@ -46,19 +50,18 @@ export default {
         back: function() {
             this.$router.go(-1);
         },
-        //登录
-        login: function() {
+        register: function() {
             if (this.phone != '' && this.password != '') {
-                this.publicHttp({phone:this.phone,password:this.password}, 'post', 'http://localhost:9999/login', (res) => {
+                this.publicHttp({phone:this.phone,password:this.password}, 'post', 'http://localhost:9999/register', (res) => {
                     this.status=res.data.status;
-                    if (res.data.status == 200) {
-                        localStorage.setItem('userInfo', JSON.stringify(res.data.data));
-                        this.$router.push('/userIndex');
-                    }else if(res.data.status==402){
-                        this.noticeContent='您还未注册，是否前往注册？'
+                    if (this.status == 200) {
+                        this.noticeContent='注册成功，是否前往登录？';
                         this.isShow=true;
-                    }else if(res.data.status==401){
-                        this.noticeContent='密码错误，请重新输入。'
+                    }else if(this.status==401){
+                        this.noticeContent='注册失败，请稍候再试!';
+                        this.isShow=true;
+                    }else if(this.status==402){
+                        this.noticeContent='您的手机号已注册，不能再次注册，是否前往登录？';
                         this.isShow=true;
                     }
                 })
@@ -71,8 +74,8 @@ export default {
         //确定
         confirmBtn:function(){
             this.isShow=false;
-            if(this.status==402){
-                this.$router.push({name:'register'});
+            if(this.status==200||this.status==402){
+                this.$router.push({name:'telephoneLogin'});
             }
         }
     }

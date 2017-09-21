@@ -39,7 +39,7 @@ export default {
         }
     },
     created: function() {
-        
+        this.hasUserInfo();
     },
     methods: {
         //用户是否登录函数
@@ -52,15 +52,9 @@ export default {
         }
     },
     watch:{
-        //监听路由变化，动态切换播放界面和功能页
+        //监听路由变化，判断是否登录
         "$route":function(to,from){
-            const curRoute=this.$route.name;
             this.hasUserInfo();
-            if(curRoute==='playView'||curRoute==='fmPlayView'||curRoute==='telephoneLogin'||curRoute==='login'){
-                this.isPlayView=true;
-            }else{
-                this.isPlayView=false;
-            }
         }
     }
 }

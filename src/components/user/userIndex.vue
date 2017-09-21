@@ -9,7 +9,7 @@
             <div class="base-info-box">
                 <img src="" alt="" class="portrait">
                 <div class="username">
-                    <p>{{userInfo.name||userInfo.phone}}</p>
+                    <p @click="fillData">{{userInfo.username||'去填写'}}</p>
                     <img src="../../static/images/LV5.png" alt="" class="level">
                 </div>
             </div>
@@ -44,7 +44,7 @@
                 </div>
             </div>
             <div class="info-item">
-                <div class="info-item-detail-sp">
+                <div class="info-item-detail-sp" @click="editData">
                     <p class="info-item-detail-title">
                         <img src="../../static/images/write.png" alt="" class="edit-data">
                     </p>
@@ -183,9 +183,12 @@ export default {
         }
     },
     created: function() {
-        //获取登录的用户缓存信息
-        this.userInfo=JSON.parse(localStorage.getItem('userInfo'));
-        console.log(this.userInfo)
+        //用户退出登录后返回此界面时，获取登录的用户缓存信息,如果没有则返回首页
+        if(localStorage.getItem('userInfo')){
+            this.getUserInfo();
+        }else{
+            this.$router.push('/findMusicIndex/musicIndex');
+        }
         this.timer = setInterval(() => {
             if (GlobalData.AudioPlayStatus) {
                 this.drawRhythm();
@@ -221,6 +224,23 @@ export default {
         exitLogin:function(){
             localStorage.clear();
             this.$router.push('/login');
+        },
+        //编辑资料
+        editData:function(){
+            this.$router.push({name:'editData'});
+        },
+        //填写资料
+        fillData:function(){
+            this.$router.push({name:'editData'});
+        },
+        //获取用户信息
+        getUserInfo:function(){
+            const id=JSON.parse(localStorage.getItem('userInfo')).userId;
+            this.publicHttp({userId:id}, 'post', 'http://localhost:9999/getUserInfo', (res) => {
+                if(res.data.status==200){
+                    this.userInfo=res.data.data;
+                }
+            })
         }
     },
     destroyed: function() {

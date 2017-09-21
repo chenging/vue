@@ -10,8 +10,8 @@ module.exports = {
     },
     module: {
         loaders: [
-            {  
-                test: /\.css$/,                  
+            {
+                test: /\.css$/,
                 loader: ExtractTextPlugin.extract("style-loader", "css-loader!autoprefixer-loader"),
                 exclude: /node_modules/
             },
@@ -21,7 +21,7 @@ module.exports = {
                 exclude: /node_modules/
             },
             {
-                test: /\.vue$/, 
+                test: /\.vue$/,
                 loader: 'vue-loader',
                 exclude: /node_modules/
             },
@@ -29,9 +29,9 @@ module.exports = {
                 test: /\.js$/,
                 loader: 'babel-loader',
                 exclude: /node_modules/,
-                query:{
-                    presets: ['es2015', 'stage-0'],  
-                    plugins: ['transform-runtime']                      
+                query: {
+                    presets: ['es2015', 'stage-0'],
+                    plugins: ['transform-runtime']
                 }
             },
         ]
@@ -44,8 +44,7 @@ module.exports = {
         //   }),
         // new webpack.optimize.UglifyJsPlugin(),//代码压缩插件，webpack自带,用于生成环境
         new HtmlWebpackPlugin({
-            template:'./index.html'
+            template: './index.html'
         })
-       
     ]
 }

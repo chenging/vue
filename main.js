@@ -2,6 +2,7 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import axios from 'axios';
 import VueAxios from 'vue-axios';
+import qs from 'qs';
 //引入全局变量
 import './src/config/global';
 
@@ -36,19 +37,60 @@ Vue.prototype.clickAnimation = (e) => {
         document.body.appendChild(cav);
         //绘制点击动画
         ctx.beginPath();
-        var i=0;
-        const animationTime=setInterval(()=>{
-            i+=6;
+        var i = 0;
+        const animationTime = setInterval(() => {
+            i += 6;
             ctx.strokeStyle = `rgb(${parseInt(Math.random() * 255)},${parseInt(Math.random() * 255)},${parseInt(Math.random() * 255)})`;
             ctx.arc(x, y, i, 0, 2 * Math.PI);
             ctx.stroke();
-            if(i>=cav.width/2){
+            if (i >= cav.width / 2) {
                 clearInterval(animationTime);
                 cav.remove();
             }
-        },x/8);
+        }, x / 8);
     }
 }
+/*
+  参数说明：
+  obj：自定义需要传递给后台的参数对象，如let obj={name:'xxxx',age:'xxx'}
+
+  method: http请求方式
+
+
+  url：需请求的后台接口地址
+*/
+//封装全局http请求函数
+Vue.prototype.publicHttp = (obj = {}, method, url, callback) => {
+    Vue.axios({
+        method: method,
+        url: url,
+        data: qs.stringify(obj),
+        headers:{
+            "Content-Type":"application/x-www-form-urlencoded"
+        }
+    }).then((res) => {
+        callback(res);
+    }).catch((err) => {
+        if (!document.getElementById('toast')) {
+            const toast = document.createElement('p');
+            toast.id = 'toast';
+            toast.innerHTML = '请求超时，请稍后再试！';
+            toast.style.backgroundColor = 'red';
+            toast.style.color = '#fff';
+            toast.style.fontSize = '18px';
+            toast.style.width = '60%';
+            toast.style.position = 'absolute';
+            toast.style.top = '40%';
+            toast.style.left = '20%';
+            toast.style.textAlign = 'center';
+            document.body.appendChild(toast);
+        }
+        setTimeout(() => {
+            toast.remove();
+        }, 2000)
+    })
+};
+
 //挂载实例
 new Vue({
     el: '#app',
