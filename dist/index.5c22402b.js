@@ -19926,8 +19926,13 @@ exports.push([module.i, "\n.carousel-box[data-v-753162e1] {\r\n    width: 100%;\
         };
     },
     created: function () {
-        this.musicList = GlobalData.musicList;
-        this.getMusicList();
+        //检测当前环境，本地环境下才调用接口
+        const checkUrl = location.href.indexOf('localhost');
+        if (checkUrl > 0) {
+            this.getMusicList();
+        } else {
+            this.musicList = GlobalData.musicList;
+        }
     },
     methods: {
         //跳转私人FM音乐播放界面
@@ -19953,7 +19958,7 @@ exports.push([module.i, "\n.carousel-box[data-v-753162e1] {\r\n    width: 100%;\
         //获取音乐列表
         getMusicList: function () {
             this.publicHttp({ name: '1' }, 'post', 'http://localhost:9999/musicList', res => {
-                // console.log(res.data.data);
+                this.musicList = res.data.data;
             });
         }
     }
@@ -20240,7 +20245,7 @@ exports.push([module.i, "\n.video-list[data-v-30a5a035] {\r\n    width: 100%;\r\
         };
     },
     created: function () {
-        this.videoList = GlobalData.videoList;
+        // this.videoList = GlobalData.videoList;
         this.audioPlayStatus = GlobalData.AudioPlayStatus;
         //判断播放视频前音乐是否处于播放状态，如果处于播放状态，播放视频时暂停音频播放，并在视频播放结束或者暂停时还原音乐播放
         this.timer = setInterval(() => {

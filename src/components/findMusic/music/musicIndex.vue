@@ -50,8 +50,13 @@ export default {
         }
     },
     created: function() {
-        this.musicList = GlobalData.musicList;
-        this.getMusicList();
+        //检测当前环境，本地环境下才调用接口
+        const checkUrl=location.href.indexOf('localhost');
+        if(checkUrl>0){
+            this.getMusicList();
+        }else{
+            this.musicList = GlobalData.musicList;
+        }
     },
     methods: {
         //跳转私人FM音乐播放界面
@@ -77,7 +82,7 @@ export default {
         //获取音乐列表
         getMusicList: function() {
             this.publicHttp({ name: '1' }, 'post', 'http://localhost:9999/musicList', (res) => {
-                // console.log(res.data.data);
+                this.musicList=res.data.data;
             })
         }
     }

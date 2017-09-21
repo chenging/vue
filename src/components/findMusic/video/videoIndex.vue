@@ -34,7 +34,7 @@ export default {
         }
     },
     created: function() {
-        this.videoList = GlobalData.videoList;
+        // this.videoList = GlobalData.videoList;
         this.audioPlayStatus = GlobalData.AudioPlayStatus;
         //判断播放视频前音乐是否处于播放状态，如果处于播放状态，播放视频时暂停音频播放，并在视频播放结束或者暂停时还原音乐播放
         this.timer = setInterval(() => {
