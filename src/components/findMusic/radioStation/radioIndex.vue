@@ -1,7 +1,10 @@
 <template>
     <div v-cloak>
         <div class="ad">
-            <img src="../../../static/images/carousel-two.jpg" alt="" class="carousel-img">
+            <img :src="imgSrc" class="carousel-img">
+            <ul class="show-carousel">
+                <li v-for="(item,imgIndex) in imgList" :class="{'current-img':imgIndex===curIndex}" @click="switchIndex(imgIndex)"></li>
+            </ul>
         </div>
         <div class="radio-nav">
             <div class="radio-nav-box">
@@ -23,7 +26,7 @@
             <img src="../../../static/images/next.png" alt="" class="next-img">
         </div>
         <div class="pay-item">
-            <img src="" alt="" class="radio-person">
+            <img src="http://img4.imgtn.bdimg.com/it/u=2575254457,2360335381&fm=27&gp=0.jpg" alt="" class="radio-person">
             <div class="pay-item-detail">
                 <p class="pay-item-detail-title">
                     <strong>采铜.好书精读</strong>
@@ -38,7 +41,7 @@
             </div>
         </div>
         <div class="pay-item">
-            <img src="" alt="" class="radio-person">
+            <img src="http://img3.imgtn.bdimg.com/it/u=390537190,3317877167&fm=27&gp=0.jpg" alt="" class="radio-person">
             <div class="pay-item-detail">
                 <p class="pay-item-detail-title">
                     <strong>陈立客厅</strong>
@@ -244,14 +247,56 @@ export default {
             radioList: ['有声书', '知识技能', '商业财经', '人文历史', '外语世界', '亲子宝贝', '创作|翻唱'
                 , '音乐故事', '3D|电子', '相声曲艺', '情歌调频', '美文读物', '脱口秀', '广播剧', '二次元', '娱乐|影视',
                 '科技科学', '校园|教育', '旅途|城市'],
-            musicList:[]
+            musicList:[],
+            imgList: [
+                'http://img5.imgtn.bdimg.com/it/u=3303490552,2643456935&fm=27&gp=0.jpg',
+                'http://img5.imgtn.bdimg.com/it/u=1783741574,2767026355&fm=27&gp=0.jpg',
+                'http://img0.imgtn.bdimg.com/it/u=4264003133,22410145&fm=27&gp=0.jpg',
+                'http://img0.imgtn.bdimg.com/it/u=1971117974,1313741860&fm=27&gp=0.jpg',
+                'http://img5.imgtn.bdimg.com/it/u=2937188385,928082306&fm=27&gp=0.jpg'
+            ],
+            imgIndex: 0,
+            imgSrc: '',
+            curIndex: 0
         }
     },
     created: function() {
        this.musicList=GlobalData.musicList;
+       this.imgSrc = this.imgList[this.imgIndex];
+        this.timer = setInterval(() => {
+            this.carouselFunc();
+        }, 3000);
     },
     methods: {
+        //轮播控制函数
+        carouselFunc: function() {
+            const img=document.getElementById('carousel-img');
+            if (this.imgIndex < this.imgList.length - 1) {
+                // img.style.animationPlayState='running';
+                this.imgIndex++;
 
+            } else {
+                this.imgIndex = 0;
+            }
+            this.curIndex = this.imgIndex;
+            this.imgSrc = this.imgList[this.imgIndex];
+        },
+        //点击轮播圆圈切换index
+        switchIndex: function(index) {
+            this.imgIndex = index;
+            this.curIndex = this.imgIndex;
+            this.imgSrc = this.imgList[this.imgIndex];
+            clearInterval(this.timer);
+            setTimeout(() => {
+                clearInterval(this.timer);
+                this.timer = setInterval(() => {
+                    this.carouselFunc();
+                }, 3000);
+            }, 5000)
+        }
+    },
+    destroyed:function(){
+        clearInterval(this.timer);
     }
 }
 </script>
@@ -260,13 +305,36 @@ export default {
     width: 100%;
     height: 140px;
     margin-top: 85px;
+    position: relative;
 }
 
 .carousel-img {
     width: 100%;
     height: 100%;
 }
+.show-carousel {
+    position: absolute;
+    bottom: 10px;
+    width: 100%;
+    height: 20px;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
+.show-carousel li {
+    list-style: none;
+    width: 8px;
+    height: 8px;
+    border-radius: 8px;
+    background: #fff;
+    margin: 0 8px;
+}
+
+.current-img {
+    background: #9b85eb !important;
+}
 .radio-nav {
     width: 100%;
     height: 58px;

@@ -7,7 +7,7 @@
         </header>
         <div class="user-base-info">
             <div class="base-info-box">
-                <img src="" alt="" class="portrait">
+                <img :src="userInfo.portrait" alt="" class="portrait">
                 <div class="username">
                     <p @click="fillData">{{userInfo.username||'去填写'}}</p>
                     <img src="../../static/images/LV5.png" alt="" class="level">

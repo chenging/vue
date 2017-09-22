@@ -1,10 +1,10 @@
 <template>
     <div v-cloak>
         <header>
-            <img src='../../static/images/voice.png' alt="" class="voice-img" @click="inputVoice"/>
+            <img src='../../static/images/voice.png' alt="" class="voice-img" @click="inputVoice" />
             <div class="search-box">
                 <img src='../../static/images/search.png' alt="" class="search-img" />
-                <input type="text" class="search-input" placeholder="搜索歌词、音乐、电台" />
+                <input type="text" class="search-input" placeholder="搜索歌词、音乐、电台" v-model="musicInfo" @input="searchMusic">
             </div>
             <canvas id="rhythm" class="volum-img" @click="playing"></canvas>
         </header>
@@ -23,18 +23,19 @@
 export default {
     data() {
         return {
-            navList: ['音乐', '视频', '电台']
+            navList: ['音乐', '视频', '电台'],
+            musicInfo: ''
         }
     },
     created: function() {
-        this.timer=setInterval(()=>{
-            if(GlobalData.AudioPlayStatus){
+        this.timer = setInterval(() => {
+            if (GlobalData.AudioPlayStatus) {
                 this.drawRhythm();
             }
-        },1000)
+        }, 1000)
     },
     mounted: function() {
-       this.drawRhythm();
+        this.drawRhythm();
     },
     methods: {
         //进入音乐播放界面
@@ -53,15 +54,23 @@ export default {
             for (let i = 2; i < cav.width; i += 5) {
                 ctx.beginPath();
                 ctx.moveTo(i, cav.height);
-                ctx.lineTo(i, Math.abs(parseInt(Math.random()*cav.height)-5));
+                ctx.lineTo(i, Math.abs(parseInt(Math.random() * cav.height) - 5));
                 ctx.stroke();
             }
             // GlobalData.isDrawRhythm=true;
 
         },
         //输入语音
-        inputVoice:function(e){
+        inputVoice: function(e) {
             // this.clickAnimation(e);
+        },
+        //搜索歌曲、歌词、演唱者
+        searchMusic: function() {
+            if (this.musicInfo !== '') {
+                this.publicHttp({ keyword: this.musicInfo }, 'post', 'http://localhost:9999/searchMusic', (res) => {
+                    // console.log(res.data);
+                })
+            }
         }
     },
     destroyed: function() {

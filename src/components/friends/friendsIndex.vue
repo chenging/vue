@@ -40,11 +40,11 @@
         </div>
         <div class="video-list">
             <div class="video-item" v-for="(item,index) in videoList">
-                <img src="" alt="" class="publisher-portrait">
+                <img :src="item.portrait" alt="" class="publisher-portrait">
                 <div class="video-item-content">
                     <div class="video-item-title">
                         <div class="video-title">
-                            <p class="video-title-name">youtube翻唱...</p>
+                            <p class="video-title-name">{{item.username}}</p>
                             <p class="video-title-time">11:00</p>
                         </div>
                         <p class="video-release">发布短视频:</p>
@@ -88,7 +88,7 @@ export default {
         }
     },
     created: function() {
-        // this.videoList = GlobalData.videoList;
+        this.videoList = GlobalData.videoList;
         this.audioPlayStatus = GlobalData.AudioPlayStatus;
         //判断播放视频前音乐是否处于播放状态，如果处于播放状态，播放视频时暂停音频播放，并在视频播放结束或者暂停时还原音乐播放
         this.timer = setInterval(() => {
@@ -324,7 +324,6 @@ header {
 .publisher-portrait {
     width: 45px;
     height: 40px;
-    border: 1px solid red;
     border-radius: 40px;
     margin-left: 3%;
 }

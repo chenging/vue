@@ -8,7 +8,7 @@ const userModel = require('./dataBase/userDB').userModel;
     conditions:查询条件
     options:返回条件
 */
-const readWrite = (objModel, method, conditions = {}, options = {},...rest) => {
+const readWrite = (objModel, method, conditions = {}, options = {}, ...rest) => {
     return new Promise((resolve, reject) => {
         objModel.update(conditions, { multi: true }, (err) => {
             if (err) {
@@ -129,10 +129,10 @@ router.post('/submitData', async (ctx, next) => {
         qrcode: qrcode,
         colleage: colleage,
         introduce: introduce
-    },{upsert:true});
+    }, { upsert: true });
     if (resData.ok == 1) {
         //修改成功后，查询用户最新信息并返回
-        const updateData=await readWrite(userModel, 'findOne', { userId:userId }, { _id: 0, __v: 0, password: 0 });
+        const updateData = await readWrite(userModel, 'findOne', { userId: userId }, { _id: 0, __v: 0, password: 0 });
         ctx.response.body = {
             status: '200',
             msg: '修改成功!',
@@ -149,14 +149,14 @@ router.post('/submitData', async (ctx, next) => {
 //获取用户信息接口
 router.post('/getUserInfo', async (ctx, next) => {
     const userId = ctx.request.body.userId;
-    const updateData=await readWrite(userModel, 'findOne', { userId:userId }, { _id: 0, __v: 0, password: 0 });
-    if(updateData!=null){
+    const updateData = await readWrite(userModel, 'findOne', { userId: userId }, { _id: 0, __v: 0, password: 0 });
+    if (updateData != null) {
         ctx.response.body = {
             status: '200',
             msg: '成功!',
             data: updateData
         }
-    }else{
+    } else {
         ctx.response.body = {
             status: '401',
             msg: '查询失败',
@@ -165,29 +165,29 @@ router.post('/getUserInfo', async (ctx, next) => {
     }
 });
 //用户注册接口,先验证手机号是否存在
-router.post('/register',async(ctx,next)=>{
-    const phone=ctx.request.body.phone;
-    const password=ctx.request.body.password;
+router.post('/register', async (ctx, next) => {
+    const phone = ctx.request.body.phone;
+    const password = ctx.request.body.password;
     const isRegister = await readWrite(userModel, 'findOne', { phone: phone }, { _id: 0 });
-    if(isRegister===null){
+    if (isRegister === null) {
         //若用户未注册，查询数据库并为用户生成唯一的id
-        const createUserId=await readWrite(userModel, 'find', { }, { _id: 0 });
-        const userId=createUserId.length+1;
-        const register=await readWrite(userModel, 'insertMany', { phone: phone,password:password,userId:userId }, {});
-        if(register.length!==0){
+        const createUserId = await readWrite(userModel, 'find', {}, { _id: 0 });
+        const userId = createUserId.length + 1;
+        const register = await readWrite(userModel, 'insertMany', { phone: phone, password: password, userId: userId }, {});
+        if (register.length !== 0) {
             ctx.response.body = {
                 status: '200',
                 msg: '注册成功',
                 data: ''
             }
-        }else{
+        } else {
             ctx.response.body = {
                 status: '401',
                 msg: '服务器繁忙，注册失败',
                 data: ''
             }
         }
-    }else{
+    } else {
         ctx.response.body = {
             status: '402',
             msg: '该用户已注册，请直接登录!',
@@ -195,7 +195,29 @@ router.post('/register',async(ctx,next)=>{
         }
     }
 });
-
+//歌曲名称、演唱者、歌词搜索接口(模糊查询)
+router.post('/searchMusic', async (ctx, next) => {
+    const keyword = ctx.request.body.keyword;
+    const reg=new RegExp(keyword,'i');//不区分大小写
+    const result = await await readWrite(musicModel, 'find', {$or:[
+        {name:{$regex:reg}},
+        {lyric:{$regex:reg}},
+        {singer:{$regex:reg}},
+    ]}, { _id: 0,__v:0 });
+    if (result.length === 0) {
+        ctx.response.body = {
+            status: '401',
+            msg: '未查询到数据',
+            data: ''
+        }
+    } else {
+        ctx.response.body = {
+            status: '200',
+            msg: '查询成功',
+            data: result
+        }
+    }
+})
 
 
 

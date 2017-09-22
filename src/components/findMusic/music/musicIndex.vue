@@ -1,7 +1,10 @@
 <template>
     <div v-cloak>
         <div class="carousel-box">
-            <img src='../../../static/images/carousel-two.jpg' class="carousel-img" />
+            <img :src='imgSrc' class="carousel-img" id="carousel-img">
+            <ul class="show-carousel">
+                <li v-for="(item,imgIndex) in imgList" :class="{'current-img':imgIndex===curIndex}" @click="switchIndex(imgIndex)"></li>
+            </ul>
         </div>
         <div class="radio-station">
             <div class="radio-station-item" @click="getIntoFm">
@@ -46,17 +49,31 @@ export default {
     data() {
         return {
             musicTitleList: ['推荐歌单', '独家放送', '最新音乐', '推荐MV', '精选专栏', '主播电台'],
-            musicList: []
+            musicList: [],
+            imgList: [
+                'http://img5.imgtn.bdimg.com/it/u=3303490552,2643456935&fm=27&gp=0.jpg',
+                'http://img5.imgtn.bdimg.com/it/u=1783741574,2767026355&fm=27&gp=0.jpg',
+                'http://img0.imgtn.bdimg.com/it/u=4264003133,22410145&fm=27&gp=0.jpg',
+                'http://img0.imgtn.bdimg.com/it/u=1971117974,1313741860&fm=27&gp=0.jpg',
+                'http://img5.imgtn.bdimg.com/it/u=2937188385,928082306&fm=27&gp=0.jpg'
+            ],
+            imgIndex: 0,
+            imgSrc: '',
+            curIndex: 0
         }
     },
     created: function() {
         //检测当前环境，本地环境下才调用接口
-        const checkUrl=location.href.indexOf('localhost');
-        if(checkUrl>0){
+        const checkUrl = location.href.indexOf('localhost');
+        if (checkUrl > 0) {
             this.getMusicList();
-        }else{
+        } else {
             this.musicList = GlobalData.musicList;
         }
+        this.imgSrc = this.imgList[this.imgIndex];
+        this.timer = setInterval(() => {
+            this.carouselFunc();
+        }, 3000);
     },
     methods: {
         //跳转私人FM音乐播放界面
@@ -77,14 +94,43 @@ export default {
         },
         //选择歌单
         selectMusicList: function(id) {
-            console.log(id)
+            console.log(id);
         },
         //获取音乐列表
         getMusicList: function() {
-            this.publicHttp({ name: '1' }, 'post', 'http://localhost:9999/musicList', (res) => {
-                this.musicList=res.data.data;
+            this.publicHttp({}, 'post', 'http://localhost:9999/musicList', (res) => {
+                this.musicList = res.data.data;
             })
+        },
+        //轮播控制函数
+        carouselFunc: function() {
+            const img=document.getElementById('carousel-img');
+            if (this.imgIndex < this.imgList.length - 1) {
+                // img.style.animationPlayState='running';
+                this.imgIndex++;
+
+            } else {
+                this.imgIndex = 0;
+            }
+            this.curIndex = this.imgIndex;
+            this.imgSrc = this.imgList[this.imgIndex];
+        },
+        //点击轮播圆圈切换index
+        switchIndex: function(index) {
+            this.imgIndex = index;
+            this.curIndex = this.imgIndex;
+            this.imgSrc = this.imgList[this.imgIndex];
+            clearInterval(this.timer);
+            setTimeout(() => {
+                clearInterval(this.timer);
+                this.timer = setInterval(() => {
+                    this.carouselFunc();
+                }, 3000);
+            }, 5000)
         }
+    },
+    destroyed: function() {
+        clearInterval(this.timer);
     }
 }
 </script>
@@ -94,11 +140,59 @@ export default {
     height: 140px;
     overflow: hidden;
     margin-top: 85px;
+    position: relative;
 }
 
 .carousel-img {
     width: 100%;
     height: 100%;
+    animation-name: switchImg;
+    animation-duration: 3s;
+    animation-timing-function: linear;
+    animation-delay: 0s;
+    animation-iteration-count: infinite;
+    animation-direction: normal;
+    animation-play-state: paused;
+}
+/* @keyframes switchImg {
+    0%{
+        opacity: 1;
+    }
+    25%{
+        opacity: 0.7;
+    }
+    50%{
+        opacity: 0.4;
+    }
+    75%{
+        opacity: 0.1;
+    }
+    100%{
+        opacity: 0;
+    }
+} */
+.show-carousel {
+    position: absolute;
+    bottom: 10px;
+    width: 100%;
+    height: 20px;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.show-carousel li {
+    list-style: none;
+    width: 8px;
+    height: 8px;
+    border-radius: 8px;
+    background: #fff;
+    margin: 0 8px;
+}
+
+.current-img {
+    background: #9b85eb !important;
 }
 
 .radio-station {

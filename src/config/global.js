@@ -59,20 +59,28 @@ global.GlobalData={
     videoList:[
         {
             name:'测试视频1',
-            src:'http://k.youku.com/player/getFlvPath/sid/050571970419612b2a372/st/mp4/fileid/03000A010059BC11C70B4549C3C50F543EAA38-E0F3-6F10-3C82-999579420B77?k=fca30b3ebc681e4d2413256e&hd=0&myp=0&ts=188&ctype=12&ev=1&token=0534&oip=1891734121&ep=cieUH06MX8kA4SLWjj8bNS6zd3ANXP4J9h%2BF8NJjALshQZrMmD%2BiwJ3CSvpGH4oaAScGZu71qKWW%0AG0McYYVD32sQ2TipOfrjjfjh5aRazZUHbx00cr%2FQs1SeRjP1&ccode=0502&duration=188&expire=18000&psid=611e56742d90a46fcc5f4c7ca1680f4c&ups_client_netip=112.193.146.105&ups_ts=1505719704&ups_userid=&utid=iDJFEgYEV18CAavVDGaBNqu%2F&vid=XMzAyNDIwMjI3Ng%3D%3D&vkey=A15c9f096b550ce65694351f743bd5c61'
+            src:'http://121.29.55.235/696E5505B23877A61AC85DF4/03000A010059C2A0DB0CF600000001CF3056AF-8FE5-347F-1C88-9A5AEE164919.mp4?ccode=0502&duration=222&expire=18000&psid=9d0b39a5a1b7240400458d8fbbc22a97&ups_client_netip=112.193.146.105&ups_ts=1506050122&ups_userid=&utid=iDJFEgYEV18CAavVDGaBNqu%2F&vid=XMjQ4MDkzNDE0MA%3D%3D&vkey=Ab66a3843d561b4b5347526ea952f6d56',
+            portrait:'http://img5.imgtn.bdimg.com/it/u=3303490552,2643456935&fm=27&gp=0.jpg',
+            username:'测试名字1'
         },
-        {
-            name:'测试视频2',
-            src:'http://k.youku.com/player/getFlvPath/sid/0505721280009121bd429/st/mp4/fileid/03000A010059BF365A9E590954C352854B4EDC-6906-312E-89B1-0FCACCF5EB76?k=b5321501fe7b2b73261fe90f&hd=0&myp=0&ts=223&ctype=12&ev=1&token=0549&oip=1891734121&ep=cieUH06PV8wI5SPfgT8bZn62cHUGXP4J9h%2BF8NJjALshQZrJmjjUtpTFS%2FZCH%2FwdASEDEuP0r6Lj%0AHzRnYfZKqW4Q3E%2BqTPro94Li5a0lt%2BFzFW8zB7%2FQslSeRjT4&ccode=0502&duration=222&expire=18000&psid=13d65168f536ab9ac0a5bd60b3723516&ups_client_netip=112.193.146.105&ups_ts=1505721279&ups_userid=&utid=iDJFEgYEV18CAavVDGaBNqu%2F&vid=XMzAzMDA5NjE0NA%3D%3D&vkey=A34909810d8769725d0516754622cd37c'
-        },
-        {
-            name:'测试视频3',
-            src:'http://k.youku.com/player/getFlvPath/sid/05057213957941232274f/st/mp4/fileid/030011010059BCB1201B4304EC83B4E8A48F21-F97A-EB9D-10DC-D95665D46977?k=7392ec73a354b4b8261fe90f&hd=0&myp=0&ts=228&ctype=12&ev=1&token=0524&oip=1891734121&ep=cieUH06PV80J4CTWjD8bZC7gc3NZXP4J9h%2BEgNJjALshQZrM6z%2FTx5zCSvxCEoxqeiF0FJ752tTv%0AHEIVYYZKrhkQqjyhTfrh%2FoSQ5dlawZYGY20ydMTQs1SeRjL1&ccode=0502&duration=228&expire=18000&psid=a896b97fe452a42468fd3bdd821d500f&ups_client_netip=112.193.146.105&ups_ts=1505721395&ups_userid=&utid=iDJFEgYEV18CAavVDGaBNqu%2F&vid=XMzAyNjgyMTMwOA%3D%3D&vkey=A5d02c3241e29df4e0e68757926a250f2'
-        },
-        {
-            name:'测试视频4',
-            src:'http://k.youku.com/player/getFlvPath/sid/050572154558512c431ef/st/mp4/fileid/03000A010059BBC89D204F00BE01C0ACC79E95-6E2A-65F7-24F1-183FA236C57B?k=05135af114fd776a282cacaf&hd=0&myp=0&ts=291&ctype=12&ev=1&token=0529&oip=1891734121&ep=cieUH06PV8sE4CbXjT8bNCjhdSJZXP4J9h%2BF8NJjALshQZrN6jbYs5%2BwSolCFotsciN1EJqC2Nfu%0AH0kRYfY2qxkQ2UvePvri%2Bobi5axbx%2BZxZBowAcjQxlSeRjL4&ccode=0502&duration=290&expire=18000&psid=dcf652c0a5e85347ac5d5585439f97da&ups_client_netip=112.193.146.105&ups_ts=1505721545&ups_userid=&utid=iDJFEgYEV18CAavVDGaBNqu%2F&vid=XMzAxOTUyMjgxMg%3D%3D&vkey=A3bd89dc75521e772d5ca94701c8822e1'
-        }
+        // {
+        //     name:'测试视频2',
+        //     src:'http://k.youku.com/player/getFlvPath/sid/0505721280009121bd429/st/mp4/fileid/03000A010059BF365A9E590954C352854B4EDC-6906-312E-89B1-0FCACCF5EB76?k=b5321501fe7b2b73261fe90f&hd=0&myp=0&ts=223&ctype=12&ev=1&token=0549&oip=1891734121&ep=cieUH06PV8wI5SPfgT8bZn62cHUGXP4J9h%2BF8NJjALshQZrJmjjUtpTFS%2FZCH%2FwdASEDEuP0r6Lj%0AHzRnYfZKqW4Q3E%2BqTPro94Li5a0lt%2BFzFW8zB7%2FQslSeRjT4&ccode=0502&duration=222&expire=18000&psid=13d65168f536ab9ac0a5bd60b3723516&ups_client_netip=112.193.146.105&ups_ts=1505721279&ups_userid=&utid=iDJFEgYEV18CAavVDGaBNqu%2F&vid=XMzAzMDA5NjE0NA%3D%3D&vkey=A34909810d8769725d0516754622cd37c',
+        //     portrait:'http://img5.imgtn.bdimg.com/it/u=1783741574,2767026355&fm=27&gp=0.jpg',
+        //     username:'测试名字2'
+        // },
+        // {
+        //     name:'测试视频3',
+        //     src:'http://k.youku.com/player/getFlvPath/sid/05057213957941232274f/st/mp4/fileid/030011010059BCB1201B4304EC83B4E8A48F21-F97A-EB9D-10DC-D95665D46977?k=7392ec73a354b4b8261fe90f&hd=0&myp=0&ts=228&ctype=12&ev=1&token=0524&oip=1891734121&ep=cieUH06PV80J4CTWjD8bZC7gc3NZXP4J9h%2BEgNJjALshQZrM6z%2FTx5zCSvxCEoxqeiF0FJ752tTv%0AHEIVYYZKrhkQqjyhTfrh%2FoSQ5dlawZYGY20ydMTQs1SeRjL1&ccode=0502&duration=228&expire=18000&psid=a896b97fe452a42468fd3bdd821d500f&ups_client_netip=112.193.146.105&ups_ts=1505721395&ups_userid=&utid=iDJFEgYEV18CAavVDGaBNqu%2F&vid=XMzAyNjgyMTMwOA%3D%3D&vkey=A5d02c3241e29df4e0e68757926a250f2',
+        //     portrait:'http://img0.imgtn.bdimg.com/it/u=4264003133,22410145&fm=27&gp=0.jpg',
+        //     username:'测试名字3'
+        // },
+        // {
+        //     name:'测试视频4',
+        //     src:'http://k.youku.com/player/getFlvPath/sid/050572154558512c431ef/st/mp4/fileid/03000A010059BBC89D204F00BE01C0ACC79E95-6E2A-65F7-24F1-183FA236C57B?k=05135af114fd776a282cacaf&hd=0&myp=0&ts=291&ctype=12&ev=1&token=0529&oip=1891734121&ep=cieUH06PV8sE4CbXjT8bNCjhdSJZXP4J9h%2BF8NJjALshQZrN6jbYs5%2BwSolCFotsciN1EJqC2Nfu%0AH0kRYfY2qxkQ2UvePvri%2Bobi5axbx%2BZxZBowAcjQxlSeRjL4&ccode=0502&duration=290&expire=18000&psid=dcf652c0a5e85347ac5d5585439f97da&ups_client_netip=112.193.146.105&ups_ts=1505721545&ups_userid=&utid=iDJFEgYEV18CAavVDGaBNqu%2F&vid=XMzAxOTUyMjgxMg%3D%3D&vkey=A3bd89dc75521e772d5ca94701c8822e1',
+        //     portrait:'http://img0.imgtn.bdimg.com/it/u=1971117974,1313741860&fm=27&gp=0.jpg',
+        //     username:'测试名字4'
+        // }
     ],
     loading:function(){
 
